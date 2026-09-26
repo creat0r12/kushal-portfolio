@@ -1,0 +1,78 @@
+.skills {
+  padding: 8rem 0;
+}
+
+.skills__header {
+  margin-bottom: 4rem;
+}
+
+.skills__eyebrow {
+  margin: 0 0 1.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+
+.skills__title {
+  margin: 0;
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.skills__title span {
+  color: var(--color-text-muted);
+}
+
+.skills__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid var(--color-border);
+}
+
+.skill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.skill:nth-child(odd) {
+  padding-right: 2rem;
+}
+
+.skill:nth-child(even) {
+  padding-left: 2rem;
+  border-left: 1px solid var(--color-border);
+}
+
+.skill__name {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.skill__category {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 600px) {
+  .skills {
+    padding: 6rem 0;
+  }
+
+  .skills__list {
+    grid-template-columns: 1fr;
+  }
+
+  .skill:nth-child(odd),
+  .skill:nth-child(even) {
+    padding: 1.25rem 0;
+    border-left: 0;
+  }
+}
