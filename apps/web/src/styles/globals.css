@@ -193,3 +193,38 @@ a {
     scroll-behavior: auto !important;
   }
 }
+
+/* =========================
+   Mobile Performance
+========================= */
+
+@media (max-width: 700px) {
+  body {
+    overscroll-behavior-x: none;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* =========================
+   Reduced Motion
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

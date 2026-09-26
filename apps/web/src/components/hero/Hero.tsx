@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import "./Hero.css";
 
 function Hero() {
@@ -6,24 +5,7 @@ function Hero() {
     <section className="hero">
       <div className="container hero__inner">
 
-        <motion.div
-          className="hero__top"
-          initial={{
-            opacity: 0,
-            y: 60,
-            scaleY: 0.7,
-          }}
-          animate={{
-            opacity: [0, 1, 1],
-            y: [60, -6, 0],
-            scaleY: [0.7, 1.05, 1],
-          }}
-          transition={{
-            duration: 0.9,
-            times: [0, 0.7, 1],
-            ease: [0.22, 1, 0.36, 1],
-          }}
-        >
+        <div className="hero__top">
           <p className="hero__eyebrow">
             CREATIVE DEVELOPER
           </p>
@@ -32,28 +14,9 @@ function Hero() {
             <span className="hero__status"></span>
             Available for interesting projects
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="hero__main"
-          initial={{
-            opacity: 0,
-            y: 120,
-            scaleY: 0.65,
-            transformOrigin: "center bottom",
-          }}
-          animate={{
-            opacity: [0, 1, 1, 1],
-            y: [120, -10, 4, 0],
-            scaleY: [0.65, 1.08, 0.97, 1],
-          }}
-          transition={{
-            duration: 1.15,
-            times: [0, 0.55, 0.8, 1],
-            ease: [0.22, 1, 0.36, 1],
-            delay: 0.08,
-          }}
-        >
+        <div className="hero__main">
           <h1 className="hero__title">
             I build
             <br />
@@ -94,30 +57,15 @@ function Hero() {
               </a>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="hero__bottom"
-          initial={{
-            opacity: 0,
-            y: 30,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.6,
-            delay: 0.65,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-        >
+        <div className="hero__bottom">
           <span>SCROLL TO EXPLORE</span>
 
           <div className="hero__line"></div>
 
           <span>2026</span>
-        </motion.div>
+        </div>
 
       </div>
     </section>

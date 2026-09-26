@@ -7,6 +7,7 @@ import Experience from "./components/experience/Experience";
 import Education from "./components/education/Education";
 import Contact from "./components/contact/Contact";
 import Footer from "./components/common/Footer";
+import Reveal from "./animations/Reveal";
 
 function App() {
   return (
@@ -14,13 +15,33 @@ function App() {
       <Navbar />
 
       <main>
-        <Hero />
-        <Projects />
-        <About />
-        <Skills />
-        <Experience />
-        <Education />
-        <Contact />
+        <Reveal>
+          <Hero />
+        </Reveal>
+
+        <Reveal>
+          <Projects />
+        </Reveal>
+
+        <Reveal>
+          <About />
+        </Reveal>
+
+        <Reveal>
+          <Skills />
+        </Reveal>
+
+        <Reveal>
+          <Experience />
+        </Reveal>
+
+        <Reveal>
+          <Education />
+        </Reveal>
+
+        <Reveal>
+          <Contact />
+        </Reveal>
       </main>
 
       <Footer />
