@@ -277,3 +277,54 @@
     display: none;
   }
 }
+
+/* --------------------------------
+   CLICK TO ENTER SCREEN
+-------------------------------- */
+
+.intro--waiting {
+     pointer-events: auto;
+  cursor: pointer;
+
+  user-select: none;
+}
+
+.intro__waiting-content {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+
+  color: rgba(255, 255, 255, 0.5);
+
+  font-size: 0.6rem;
+  font-weight: 500;
+
+  letter-spacing: 0.25em;
+
+  transition:
+    color 200ms ease,
+    opacity 200ms ease;
+}
+
+.intro__waiting-content:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.intro__waiting-dot {
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.65);
+
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.45);
+}
+
+@media (max-width: 600px) {
+  .intro__waiting-content {
+    font-size: 0.5rem;
+    letter-spacing: 0.18em;
+  }
+}

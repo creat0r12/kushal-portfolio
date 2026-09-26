@@ -8,15 +8,74 @@ const introConfig = {
 };
 
 function Intro() {
+  const [started, setStarted] = useState(false);
   const [visible, setVisible] = useState(true);
 
+  // Start the intro only after the user's first interaction.
   useEffect(() => {
+    if (!started) return;
+
     const timer = window.setTimeout(() => {
       setVisible(false);
     }, introConfig.displayTime);
 
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [started]);
+
+  // Exit fullscreen after the intro is finished.
+  useEffect(() => {
+    if (visible || !started) return;
+
+    const exitTimer = window.setTimeout(async () => {
+      try {
+        if (document.fullscreenElement) {
+          await document.exitFullscreen();
+        }
+      } catch {
+        // Ignore fullscreen exit errors.
+      }
+    }, 180);
+
+    return () => window.clearTimeout(exitTimer);
+  }, [visible, started]);
+
+  const enterExperience = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      }
+    } catch {
+      // Fullscreen can be denied by the browser.
+      // The intro will still continue normally.
+    }
+
+    setStarted(true);
+  };
+
+  // -----------------------------------------
+  // Waiting screen
+  // -----------------------------------------
+  if (!started) {
+    return (
+      <div
+        className="intro intro--waiting"
+        onPointerDown={enterExperience}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            enterExperience();
+          }
+        }}
+        aria-label="Enter portfolio"
+      >
+        <div className="intro__waiting-content">
+          <span className="intro__waiting-dot" />
+          <span>CLICK TO ENTER</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <AnimatePresence>
@@ -32,173 +91,118 @@ function Intro() {
             },
           }}
         >
-          {/* ================================================
-              EVERYTHING VISIBLE DURING THE INTRO
-              Stays visible until the white takes over.
+          {/* =================================================
+              YOUR INTRO
           ================================================= */}
+
+          {/* Atmosphere */}
           <motion.div
-            className="intro__front"
-            initial={{
-              opacity: 1,
-            }}
-            animate={{
-              opacity: [1, 1, 1, 0],
-            }}
+            className="intro__atmosphere"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.5 }}
+          />
+
+          {/* Information */}
+          <motion.div
+            className="intro__meta"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
-              delay: 2.78,
-              duration: 0.38,
-              times: [0, 0.3, 0.55, 1],
+              duration: 1.2,
+              delay: 0.2,
               ease: [0.16, 1, 0.3, 1],
             }}
           >
-            {/* Atmosphere */}
-            <motion.div
-              className="intro__atmosphere"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.5 }}
-            />
+            CREATIVE DEVELOPER
+            <span style={{ margin: "0 8px", opacity: 0.5 }}>
+              ·
+            </span>
+            COMPUTER SCIENCE STUDENT
+          </motion.div>
 
-            {/* Information */}
+          {/* Main identity */}
+          <motion.div
+            className="intro__name-wrap"
+            initial={{ scale: 0.95 }}
+            animate={{ scale: 1.05 }}
+            transition={{
+              duration: 4,
+              ease: "linear",
+            }}
+          >
+            {/* Soft glow */}
             <motion.div
-              className="intro__meta"
+              className="intro__name intro__name--glow"
+              style={{
+                position: "absolute",
+                inset: 0,
+                color: "#ffffff",
+                filter: "blur(24px)",
+              }}
               initial={{
                 opacity: 0,
-                y: 8,
-                filter: "blur(8px)",
+                scale: 0.9,
+              }}
+              animate={{
+                opacity: [0, 0.85, 0.15],
+                scale: [0.9, 1.1, 1.05],
+              }}
+              transition={{
+                duration: 2.8,
+                ease: [0.25, 1, 0.5, 1],
+                times: [0, 0.4, 1],
+                delay: 0.3,
+              }}
+            >
+              KUSHAL PATIL
+            </motion.div>
+
+            {/* Sharp text */}
+            <motion.div
+              className="intro__name intro__name--sharp"
+              style={{
+                color: "#ffffff",
+                textShadow:
+                  "0 4px 12px rgba(255,255,255,0.1)",
+              }}
+              initial={{
+                opacity: 0,
+                y: 4,
               }}
               animate={{
                 opacity: 1,
                 y: 0,
-                filter: "blur(0px)",
               }}
               transition={{
-                duration: 1.2,
-                delay: 0.2,
+                duration: 1.4,
                 ease: [0.16, 1, 0.3, 1],
+                delay: 0.6,
               }}
             >
-              CREATIVE DEVELOPER
-              <span>·</span>
-              COMPUTER SCIENCE STUDENT
-            </motion.div>
-
-            {/* Main name */}
-            <motion.div
-              className="intro__name-wrap"
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1.05 }}
-              transition={{
-                duration: 4,
-                ease: "linear",
-              }}
-            >
-              {/* Soft glow */}
-              <motion.div
-                className="intro__name intro__name--glow"
-                initial={{
-                  opacity: 0,
-                  scale: 0.9,
-                }}
-                animate={{
-                  opacity: [0, 0.85, 0.15],
-                  scale: [0.9, 1.1, 1.05],
-                }}
-                transition={{
-                  duration: 2.8,
-                  ease: [0.25, 1, 0.5, 1],
-                  times: [0, 0.4, 1],
-                  delay: 0.3,
-                }}
-              >
-                KUSHAL PATIL
-              </motion.div>
-
-              {/* Sharp name */}
-              <motion.div
-                className="intro__name intro__name--sharp"
-                initial={{
-                  opacity: 0,
-                  y: 4,
-                  filter: "blur(8px)",
-                }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  filter: "blur(0px)",
-                }}
-                transition={{
-                  duration: 1.4,
-                  ease: [0.16, 1, 0.3, 1],
-                  delay: 0.6,
-                }}
-              >
-                KUSHAL PATIL
-              </motion.div>
+              KUSHAL PATIL
             </motion.div>
           </motion.div>
 
-          {/* ================================================
-              LIGHT FROM THE NAME
+          {/* =================================================
+              FINAL WHITE LIGHT
+              Only the final 1 second is affected.
           ================================================= */}
+
           <motion.div
-            className="intro__light"
+            className="intro__final-glow"
             initial={{
               opacity: 0,
               scale: 0.03,
             }}
             animate={{
-              opacity: [0, 0.2, 0.55, 1],
-              scale: [0.03, 0.35, 1.2, 5.5],
+              opacity: [0, 0.2, 0.55, 1, 1, 0],
+              scale: [0.03, 0.3, 0.8, 1.8, 5.5, 5.5],
             }}
             transition={{
-              delay: 2.25,
-              duration: 0.95,
-              times: [0, 0.18, 0.55, 1],
-              ease: [0.16, 1, 0.3, 1],
-            }}
-          />
-
-          {/* ================================================
-              FULL WHITE EXPOSURE
-
-              Peaks while the name is still mixing into it,
-              then immediately becomes transparent.
-          ================================================= */}
-          <motion.div
-            className="intro__white"
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: [
-                0,
-                0.03,
-                0.12,
-                0.35,
-                0.68,
-                1,
-                0.96,
-                0.72,
-                0.42,
-                0,
-              ],
-            }}
-            transition={{
-              delay: 2.38,
-              duration: 0.95,
-              times: [
-                0,
-                0.08,
-                0.18,
-                0.32,
-                0.48,
-                0.62,
-                0.72,
-                0.82,
-                0.92,
-                1,
-              ],
+              delay: 2.4,
+              duration: 1,
+              times: [0, 0.12, 0.32, 0.58, 0.78, 1],
               ease: [0.16, 1, 0.3, 1],
             }}
           />
