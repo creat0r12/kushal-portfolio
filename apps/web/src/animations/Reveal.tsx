@@ -10,27 +10,74 @@ interface RevealProps {
   className?: string;
 }
 
+/*
+==================================================
+GLOBAL ANIMATION CONFIGURATION
+==================================================
+
+Change these values to control the animation
+for the entire website.
+*/
+
+const animationConfig = {
+  duration: 0.7,
+
+  y: 28,
+
+  scale: 0.985,
+
+  blur: 2,
+
+  ease: [0.22, 1, 0.36, 1] as const,
+};
+
+
+/*
+==================================================
+ANIMATION VARIANTS
+==================================================
+*/
+
 const variants: Variants = {
   hidden: {
     opacity: 0,
-    y: 24,
+    y: animationConfig.y,
+    scale: animationConfig.scale,
+    filter: `blur(${animationConfig.blur}px)`,
   },
+
   visible: {
     opacity: 1,
     y: 0,
+    scale: 1,
+    filter: "blur(0px)",
   },
 };
 
-function Reveal({ children, className = "" }: RevealProps) {
+
+/*
+==================================================
+REVEAL COMPONENT
+==================================================
+*/
+
+function Reveal({
+  children,
+  className = "",
+}: RevealProps) {
   const shouldReduceMotion = useReducedMotion();
 
   if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>;
+    return (
+      <div className={className}>
+        {children}
+      </div>
+    );
   }
 
   return (
     <motion.div
-      className={className}
+      className={`reveal-section ${className}`}
       variants={variants}
       initial="hidden"
       whileInView="visible"
@@ -39,8 +86,8 @@ function Reveal({ children, className = "" }: RevealProps) {
         amount: 0.15,
       }}
       transition={{
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1],
+        duration: animationConfig.duration,
+        ease: animationConfig.ease,
       }}
     >
       {children}

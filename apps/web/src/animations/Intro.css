@@ -1,0 +1,279 @@
+.intro {
+  position: fixed;
+  inset: 0;
+
+  z-index: 9999;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+
+  background: #000000;
+
+  isolation: isolate;
+
+  pointer-events: none;
+}
+
+
+/* --------------------------------
+   ATMOSPHERE
+-------------------------------- */
+
+.intro__atmosphere {
+  position: absolute;
+  inset: -30%;
+
+  z-index: 0;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 0.035) 0%,
+      rgba(255, 255, 255, 0.015) 28%,
+      transparent 68%
+    );
+
+  filter: blur(55px);
+
+  pointer-events: none;
+}
+
+
+/* --------------------------------
+   INFORMATION
+-------------------------------- */
+
+.intro__meta {
+  position: absolute;
+
+  z-index: 10;
+
+  top: calc(50% - 5.8rem);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.4rem;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  font-size: 0.6rem;
+  font-weight: 500;
+
+  line-height: 1;
+
+  letter-spacing: 0.23em;
+
+  white-space: nowrap;
+
+  text-align: center;
+
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.08);
+}
+
+.intro__meta span {
+  color: rgba(255, 255, 255, 0.35);
+
+  margin: 0 0.25rem;
+}
+
+
+/* --------------------------------
+   NAME WRAPPER
+-------------------------------- */
+
+.intro__name-wrap {
+  position: relative;
+
+  z-index: 10;
+
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+
+  transform-origin: center;
+}
+
+
+/* --------------------------------
+   NAME BASE
+-------------------------------- */
+
+.intro__name {
+  position: absolute;
+
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: clamp(4.5rem, 12vw, 12rem);
+
+  font-weight: 700;
+
+  line-height: 0.82;
+
+  letter-spacing: -0.09em;
+
+  text-align: center;
+
+  white-space: nowrap;
+
+  transform-origin: center;
+
+  will-change:
+    transform,
+    filter,
+    opacity,
+    text-shadow;
+
+  pointer-events: none;
+}
+
+
+/* --------------------------------
+   SOFT GLOW
+-------------------------------- */
+
+.intro__name--glow-soft {
+  z-index: 3;
+
+  text-shadow:
+    0 0 18px rgba(255, 255, 255, 1),
+    0 0 45px rgba(255, 255, 255, 0.92),
+    0 0 90px rgba(255, 255, 255, 0.72),
+    0 0 170px rgba(255, 255, 255, 0.48),
+    0 0 280px rgba(255, 255, 255, 0.25);
+}
+
+
+/* --------------------------------
+   STRONG GLOW
+-------------------------------- */
+
+.intro__name--glow-strong {
+  z-index: 2;
+
+  text-shadow:
+    0 0 30px rgba(255, 255, 255, 1),
+    0 0 75px rgba(255, 255, 255, 1),
+    0 0 150px rgba(255, 255, 255, 0.92),
+    0 0 280px rgba(255, 255, 255, 0.68),
+    0 0 450px rgba(255, 255, 255, 0.38),
+    0 0 700px rgba(255, 255, 255, 0.18);
+}
+
+
+/* --------------------------------
+   SHARP NAME
+-------------------------------- */
+
+.intro__name--sharp {
+  position: relative;
+
+  z-index: 5;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 4px 12px rgba(255, 255, 255, 0.08);
+}
+
+
+/* --------------------------------
+   LIGHT SPREAD
+-------------------------------- */
+
+.intro__light {
+  position: absolute;
+
+  inset: -100%;
+
+  z-index: 30;
+
+  pointer-events: none;
+
+  transform-origin: center;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 1) 6%,
+      rgba(255, 255, 255, 0.98) 14%,
+      rgba(255, 255, 255, 0.82) 26%,
+      rgba(255, 255, 255, 0.56) 40%,
+      rgba(255, 255, 255, 0.28) 54%,
+      rgba(255, 255, 255, 0.1) 69%,
+      rgba(255, 255, 255, 0.025) 82%,
+      transparent 100%
+    );
+
+  filter: blur(30px);
+
+  mix-blend-mode: screen;
+
+  will-change:
+    transform,
+    opacity;
+}
+
+
+/* --------------------------------
+   FINAL WHITE
+-------------------------------- */
+
+.intro__white {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 50;
+
+  background: #ffffff;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  will-change: opacity;
+}
+
+
+/* --------------------------------
+   MOBILE
+-------------------------------- */
+
+@media (max-width: 600px) {
+  .intro__meta {
+    top: calc(50% - 4.8rem);
+
+    padding: 0 1rem;
+
+    font-size: 0.46rem;
+
+    letter-spacing: 0.16em;
+  }
+
+  .intro__name {
+    font-size: clamp(3rem, 15vw, 5.5rem);
+
+    letter-spacing: -0.08em;
+  }
+}
+
+
+/* --------------------------------
+   REDUCED MOTION
+-------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    display: none;
+  }
+}

@@ -8,10 +8,12 @@ import Education from "./components/education/Education";
 import Contact from "./components/contact/Contact";
 import Footer from "./components/common/Footer";
 import Reveal from "./animations/Reveal";
+import Intro from "./animations/Intro";
 
 function App() {
   return (
     <>
+    <Intro />
       <Navbar />
 
       <main>

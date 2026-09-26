@@ -1,5 +1,4 @@
 :root {
-  /* Colors */
   --color-bg: #050505;
   --color-surface: #0d0d0d;
   --color-surface-hover: #141414;
@@ -13,12 +12,16 @@
 
   --color-accent: #ffffff;
 
-  /* Typography */
   --font-primary:
-    Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
 
-  /* Spacing */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 1.5rem;
@@ -26,17 +29,14 @@
   --space-xl: 6rem;
   --space-2xl: 10rem;
 
-  /* Layout */
   --container-width: 1200px;
   --page-padding: 1.5rem;
 
-  /* Borders */
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-pill: 999px;
 
-  /* Motion */
   --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -45,9 +45,10 @@
   --duration-slow: 800ms;
 }
 
-/* =========================
-   Reset
-========================= */
+
+/* ========================================
+   RESET
+======================================== */
 
 *,
 *::before,
@@ -69,7 +70,6 @@ body {
   min-width: 320px;
   min-height: 100vh;
 
-  background: var(--color-bg);
   color: var(--color-text);
 
   font-family: var(--font-primary);
@@ -81,11 +81,67 @@ body {
 
   overflow-x: hidden;
   -ms-overflow-style: none;
+  overscroll-behavior-x: none;
+
+  /*
+    GLOBAL ATMOSPHERIC BACKGROUND
+
+    This is intentionally on BODY rather than #root.
+    That makes the light exist behind the entire website.
+  */
+
+  background-color: #050505;
+
+  background-image:
+    /* Main overhead light */
+    radial-gradient(
+      ellipse 75% 42% at 50% 0%,
+      rgba(255, 255, 255, 0.115) 0%,
+      rgba(255, 255, 255, 0.065) 18%,
+      rgba(255, 255, 255, 0.025) 38%,
+      transparent 68%
+    ),
+
+    /* Left atmospheric light */
+    radial-gradient(
+      ellipse 45% 55% at -5% 35%,
+      rgba(255, 255, 255, 0.075) 0%,
+      rgba(255, 255, 255, 0.035) 30%,
+      transparent 70%
+    ),
+
+    /* Right atmospheric light */
+    radial-gradient(
+      ellipse 45% 55% at 105% 42%,
+      rgba(255, 255, 255, 0.065) 0%,
+      rgba(255, 255, 255, 0.03) 32%,
+      transparent 72%
+    ),
+
+    /* Central depth */
+    radial-gradient(
+      ellipse 60% 45% at 50% 45%,
+      rgba(255, 255, 255, 0.018) 0%,
+      transparent 70%
+    ),
+
+    /* Lower ambient reflection */
+    radial-gradient(
+      ellipse 65% 35% at 50% 100%,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.015) 35%,
+      transparent 75%
+    );
+
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-/* =========================
-   Typography
-========================= */
+
+/* ========================================
+   BASIC ELEMENTS
+======================================== */
 
 h1,
 h2,
@@ -106,10 +162,6 @@ h4 {
   background: var(--color-text);
   color: var(--color-bg);
 }
-
-/* =========================
-   Elements
-========================= */
 
 button,
 input,
@@ -139,13 +191,28 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* =========================
-   Layout
-========================= */
+
+/* ========================================
+   ROOT
+======================================== */
 
 #root {
+  position: relative;
   min-height: 100vh;
+
+  /*
+    IMPORTANT:
+    Do NOT give #root a solid background.
+    The body atmosphere needs to remain visible.
+  */
+
+  background: transparent;
 }
+
+
+/* ========================================
+   CONTAINER
+======================================== */
 
 .container {
   width: min(
@@ -156,63 +223,116 @@ a {
   margin-inline: auto;
 }
 
-/* =========================
-   Focus
-========================= */
+
+/* ========================================
+   FOCUS
+======================================== */
 
 :focus-visible {
   outline: 2px solid var(--color-text);
   outline-offset: 4px;
 }
 
-/* =========================
-   Responsive
-========================= */
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 1000px) {
+  :root {
+    --page-padding: 1.5rem;
+  }
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
 
 @media (max-width: 700px) {
   :root {
     --page-padding: 1.25rem;
   }
-}
 
-/* =========================
-   Reduced Motion
-========================= */
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* =========================
-   Mobile Performance
-========================= */
-
-@media (max-width: 700px) {
   body {
-    overscroll-behavior-x: none;
-  }
+    background-image:
+      /* Stronger top light on mobile */
+      radial-gradient(
+        ellipse 110% 35% at 50% -2%,
+        rgba(255, 255, 255, 0.105) 0%,
+        rgba(255, 255, 255, 0.05) 25%,
+        rgba(255, 255, 255, 0.018) 48%,
+        transparent 75%
+      ),
 
-  img,
-  video {
-    max-width: 100%;
-    height: auto;
+      /* Left light */
+      radial-gradient(
+        ellipse 70% 48% at -15% 35%,
+        rgba(255, 255, 255, 0.055),
+        transparent 72%
+      ),
+
+      /* Right light */
+      radial-gradient(
+        ellipse 70% 48% at 115% 48%,
+        rgba(255, 255, 255, 0.05),
+        transparent 72%
+      ),
+
+      /* Lower glow */
+      radial-gradient(
+        ellipse 85% 32% at 50% 100%,
+        rgba(255, 255, 255, 0.03),
+        transparent 75%
+      );
+
+    background-attachment: scroll;
   }
 }
 
-/* =========================
-   Reduced Motion
-========================= */
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 400px) {
+  :root {
+    --page-padding: 1rem;
+  }
+
+  body {
+    background-image:
+      radial-gradient(
+        ellipse 125% 32% at 50% 0%,
+        rgba(255, 255, 255, 0.09),
+        rgba(255, 255, 255, 0.035) 32%,
+        transparent 75%
+      ),
+
+      radial-gradient(
+        ellipse 85% 45% at -15% 40%,
+        rgba(255, 255, 255, 0.04),
+        transparent 75%
+      ),
+
+      radial-gradient(
+        ellipse 85% 45% at 115% 50%,
+        rgba(255, 255, 255, 0.035),
+        transparent 75%
+      ),
+
+      radial-gradient(
+        ellipse 90% 30% at 50% 100%,
+        rgba(255, 255, 255, 0.025),
+        transparent 75%
+      );
+  }
+}
+
+
+/* ========================================
+   REDUCED MOTION
+======================================== */
 
 @media (prefers-reduced-motion: reduce) {
   html {
