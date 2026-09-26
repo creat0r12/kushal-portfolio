@@ -7,16 +7,73 @@ const introConfig = {
   exitDuration: 0.15,
 };
 
+const handleFullscreen = async () => {
+  try {
+    if (!document.fullscreenElement) {
+      await document.documentElement.requestFullscreen();
+    }
+  } catch {
+    // Fullscreen may be unavailable or denied.
+  }
+};
+
 function Intro() {
-  const [visible, setVisible] = useState(true);
+  const [started, setStarted] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  const startIntro = async () => {
+    await handleFullscreen();
+
+    setStarted(true);
+    setVisible(true);
+  };
 
   useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setVisible(false);
-    }, introConfig.displayTime);
+  if (!started) return;
 
-    return () => window.clearTimeout(timer);
-  }, []);
+  const timer = window.setTimeout(() => {
+    setVisible(false);
+
+    // Exit browser fullscreen after the intro finishes.
+    window.setTimeout(async () => {
+      try {
+        if (document.fullscreenElement) {
+          await document.exitFullscreen();
+        }
+      } catch {
+        // Ignore fullscreen exit errors.
+      }
+    }, 150);
+  }, introConfig.displayTime);
+
+  return () => window.clearTimeout(timer);
+}, [started]);
+
+  /*
+   * Before the intro starts:
+   * show only the tap screen.
+   */
+  if (!started) {
+    return (
+      <div
+        className="intro intro--waiting"
+        onPointerDown={startIntro}
+        role="button"
+        tabIndex={0}
+        aria-label="Tap to enter"
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            startIntro();
+          }
+        }}
+      >
+        <div className="intro__waiting-content">
+          <span className="intro__waiting-dot" />
+          <span>TAP ANYWHERE</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <AnimatePresence>
@@ -34,7 +91,6 @@ function Intro() {
         >
           {/* ================================================
               EVERYTHING VISIBLE DURING THE INTRO
-              Stays visible until the white takes over.
           ================================================= */}
           <motion.div
             className="intro__front"
@@ -161,9 +217,6 @@ function Intro() {
 
           {/* ================================================
               FULL WHITE EXPOSURE
-
-              Peaks while the name is still mixing into it,
-              then immediately becomes transparent.
           ================================================= */}
           <motion.div
             className="intro__white"
