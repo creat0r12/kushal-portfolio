@@ -1,0 +1,62 @@
+.glass-test-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: #050505;
+}
+
+.glass-test-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(20px);
+}
+
+.orb-1 {
+  top: 10%;
+  left: 15%;
+  background: #315cff;
+}
+
+.orb-2 {
+  right: 10%;
+  bottom: 10%;
+  background: #ff3cac;
+}
+
+.orb-3 {
+  left: 45%;
+  top: 55%;
+  background: #00d4ff;
+}
+
+.glass-test-content {
+  position: relative;
+  z-index: 2;
+  padding: 32px;
+  color: white;
+}
+
+.glass-test-content h1 {
+  margin: 0 0 10px;
+}
+
+.glass-test-content p {
+  opacity: 0.7;
+}
+
+.glass-test-content button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 12px;
+}

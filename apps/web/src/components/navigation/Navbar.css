@@ -1,12 +1,11 @@
 /* =========================================
    NAVBAR
-   Glass effect is handled by <Glass />
-   This file handles layout only.
+   Structure + positioning only.
+   Glass is handled entirely by <Glass />.
    ========================================= */
 
 .navbar {
   position: fixed;
-
   top: 22px;
   left: 0;
   right: 0;
@@ -25,14 +24,16 @@
    ========================================= */
 
 .navbar__inner {
-  width: 100%;
-  height: 100%;
-
-  padding: 0 22px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 0 24px;
+
+  box-sizing: border-box;
 
   pointer-events: auto;
 }
@@ -43,14 +44,20 @@
    ========================================= */
 
 .navbar__logo {
-  color: #fff;
+  display: inline-flex;
+  align-items: center;
 
+  flex-shrink: 0;
+
+  color: #fff;
   text-decoration: none;
 
   font-size: 18px;
+  line-height: 1;
   font-weight: 600;
+  letter-spacing: -0.04em;
 
-  letter-spacing: -0.03em;
+  white-space: nowrap;
 
   transition:
     opacity 0.25s ease,
@@ -74,25 +81,36 @@
 .navbar__links {
   display: flex;
   align-items: center;
+  justify-content: center;
 
   gap: 34px;
+
+  margin: 0;
 }
 
 .navbar__links a {
-  color: rgba(255, 255, 255, 0.7);
+  display: inline-flex;
+  align-items: center;
+
+  color: rgba(255, 255, 255, 0.82);
 
   text-decoration: none;
 
   font-size: 14px;
+  line-height: 1;
   font-weight: 400;
+
+  white-space: nowrap;
 
   transition:
     color 0.25s ease,
-    opacity 0.25s ease;
+    opacity 0.25s ease,
+    transform 0.25s ease;
 }
 
 .navbar__links a:hover {
   color: #fff;
+  transform: translateY(-1px);
 }
 
 
@@ -106,6 +124,8 @@
   align-items: center;
   justify-content: center;
 
+  flex-shrink: 0;
+
   width: 44px;
   height: 44px;
 
@@ -114,10 +134,9 @@
   color: #fff;
 
   background: transparent;
-  border: none;
+  border: 0;
 
   cursor: pointer;
-
   pointer-events: auto;
 
   transition:
@@ -142,7 +161,6 @@
   display: none;
 
   width: 100%;
-
   margin-top: 10px;
 
   pointer-events: auto;
@@ -156,21 +174,27 @@
   display: flex;
   flex-direction: column;
 
-  gap: 4px;
+  gap: 2px;
 
   padding: 8px 0;
 }
 
 .navbar__mobile a {
-  display: block;
+  display: flex;
+  align-items: center;
 
-  padding: 12px 16px;
+  min-height: 44px;
+  width: 100%;
 
-  color: rgba(255, 255, 255, 0.75);
+  padding: 0 16px;
+
+  color: rgba(255, 255, 255, 0.82);
 
   text-decoration: none;
 
   font-size: 14px;
+  line-height: 1;
+  font-weight: 400;
 
   transition:
     color 0.2s ease,
@@ -183,17 +207,16 @@
 
 
 /* =========================================
-   MOBILE
+   TABLET / MOBILE
    ========================================= */
 
 @media (max-width: 700px) {
-
   .navbar {
     top: 14px;
   }
 
   .navbar__inner {
-    padding: 0 16px;
+    padding: 0 18px;
   }
 
   .navbar__links {
@@ -203,7 +226,6 @@
   .navbar__menu {
     display: flex;
   }
-
 }
 
 
@@ -212,13 +234,12 @@
    ========================================= */
 
 @media (max-width: 420px) {
-
   .navbar {
     top: 10px;
   }
 
   .navbar__inner {
-    padding: 0 14px;
+    padding: 0 15px;
   }
 
   .navbar__logo {
@@ -229,7 +250,6 @@
     width: 42px;
     height: 42px;
   }
-
 }
 
 
@@ -238,12 +258,10 @@
    ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   .navbar__logo,
-  .navbar__links a,
+  .navbar__links ,
   .navbar__menu,
   .navbar__mobile a {
     transition: none;
   }
-
 }

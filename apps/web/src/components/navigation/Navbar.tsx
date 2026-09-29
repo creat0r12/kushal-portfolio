@@ -45,11 +45,12 @@ function Navbar({ backgroundRef }: NavbarProps) {
 
       {/* Universal Liquid Glass */}
       <Glass
-        width={glassWidth}
-        height={78}
-        radius={28}
-        backgroundRef={backgroundRef}
-      >
+  width={glassWidth}
+  height={78}
+  radius={28}
+  backgroundRef={backgroundRef}
+  className="navbar__glass"
+>
         <div className="navbar__inner">
 
           <a

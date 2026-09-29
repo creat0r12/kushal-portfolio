@@ -1,0 +1,235 @@
+.liquid-glass-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  box-sizing: border-box;
+
+  cursor: pointer;
+
+  background: rgba(255, 255, 255, 0.01);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  box-shadow:
+    0 0 21px -8px rgba(255, 255, 255, 0.3),
+    inset 0 0 5px -2px rgba(255, 255, 255, 0.7);
+
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+
+  transform: translateZ(0);
+}
+
+
+/* =========================================================
+   LIQUID DISTORTION
+   ========================================================= */
+
+.liquid-glass-card__distortion {
+  position: absolute;
+  inset: 0;
+
+  z-index: 0;
+
+  border-radius: inherit;
+
+  pointer-events: none;
+
+  /*
+   * IMPORTANT:
+   * This layer must interact with the backdrop.
+   */
+  background: rgba(255, 255, 255, 0.001);
+
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+
+  isolation: isolate;
+
+  transform: translateZ(0);
+}
+
+
+/* =========================================================
+   INNER LIQUID EDGE
+   ========================================================= */
+
+.liquid-glass-card__inner {
+  position: absolute;
+  inset: 0;
+
+  z-index: 5;
+
+  border-radius: inherit;
+
+  pointer-events: none;
+
+  box-shadow:
+    inset 0 0 5px -2px rgba(255, 255, 255, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 1px 0 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   LIGHT REFLECTION
+   ========================================================= */
+
+.liquid-glass-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: 6;
+
+  border-radius: inherit;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.16),
+      transparent 25%,
+      transparent 70%,
+      rgba(255, 255, 255, 0.04)
+    );
+
+  opacity: 0.65;
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.liquid-glass-card__content {
+  position: relative;
+
+  z-index: 10;
+
+  width: 100%;
+  height: 100%;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.liquid-glass-card:hover {
+  box-shadow:
+    0 0 28px -8px rgba(255, 255, 255, 0.4),
+    inset 0 0 8px -2px rgba(255, 255, 255, 0.8);
+}
+
+
+/* =========================================================
+   TEST PAGE
+   ========================================================= */
+
+.liquid-test {
+  position: relative;
+
+  min-height: 100vh;
+  width: 100%;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+
+  background-image:
+    url("/liquid-morph-test-background.png");
+
+  background-size: cover;
+  background-position: center;
+}
+
+
+/* =========================================================
+   TEST CONTENT
+   ========================================================= */
+
+.test-content {
+  width: 100%;
+  height: 100%;
+
+  box-sizing: border-box;
+
+  padding: 32px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  color: white;
+
+  font-family:
+    Inter,
+    system-ui,
+    sans-serif;
+
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.test-label {
+  font-size: 12px;
+
+  letter-spacing: 0.16em;
+
+  opacity: 0.65;
+}
+
+.test-content h1 {
+  margin: 14px 0 8px;
+
+  font-size: 34px;
+  line-height: 1;
+}
+
+.test-content p {
+  max-width: 420px;
+
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  line-height: 1.6;
+}
+
+.test-content button {
+  align-self: flex-start;
+
+  padding: 11px 22px;
+
+  border-radius: 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+
+  background: rgba(255, 255, 255, 0.1);
+
+  color: white;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .liquid-glass-card {
+    max-width: 92vw;
+  }
+}

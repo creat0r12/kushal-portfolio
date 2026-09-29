@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { CSSProperties, RefObject } from "react";
+// import "./Glass.css";
 
 import LiquidGlass from "./LiquidGlass";
 import { LensType } from "./types";
@@ -7,6 +8,10 @@ import { LensType } from "./types";
 type GlassProps = {
   children: ReactNode;
 
+  /*
+   * Each element can define its own glass size.
+   * No fixed universal size.
+   */
   width?: number;
   height?: number;
   radius?: number;
@@ -27,9 +32,9 @@ type GlassProps = {
 function Glass({
   children,
 
-  width = 300,
-  height = 200,
-  radius = 28,
+  width,
+  height,
+  radius,
 
   backgroundRef,
 
