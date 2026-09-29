@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 import Navbar from "./components/navigation/Navbar";
 import Hero from "./components/hero/Hero";
 import Projects from "./components/projects/Projects";
@@ -7,47 +9,54 @@ import Experience from "./components/experience/Experience";
 import Education from "./components/education/Education";
 import Contact from "./components/contact/Contact";
 import Footer from "./components/common/Footer";
+
 import Reveal from "./animations/Reveal";
-import Intro from "./animations/Intro";
+
+import { LiquidGlassProvider } from "./components/Glass/LiquidGlassProvider";
 
 function App() {
+  const backgroundRef = useRef<HTMLDivElement>(null);
+
   return (
-    <>
-    <Intro />
-      <Navbar />
+    <LiquidGlassProvider>
+      <div ref={backgroundRef}>
 
-      <main>
-        <Reveal>
-          <Hero />
-        </Reveal>
+        <Navbar backgroundRef={backgroundRef} />
 
-        <Reveal>
-          <Projects />
-        </Reveal>
+        <main>
+          <Reveal>
+            <Hero />
+          </Reveal>
 
-        <Reveal>
-          <About />
-        </Reveal>
+          <Reveal>
+            <Projects />
+          </Reveal>
 
-        <Reveal>
-          <Skills />
-        </Reveal>
+          <Reveal>
+            <About />
+          </Reveal>
 
-        <Reveal>
-          <Experience />
-        </Reveal>
+          <Reveal>
+            <Skills />
+          </Reveal>
 
-        <Reveal>
-          <Education />
-        </Reveal>
+          <Reveal>
+            <Experience />
+          </Reveal>
 
-        <Reveal>
-          <Contact />
-        </Reveal>
-      </main>
+          <Reveal>
+            <Education />
+          </Reveal>
 
-      <Footer />
-    </>
+          <Reveal>
+            <Contact />
+          </Reveal>
+        </main>
+
+        <Footer />
+
+      </div>
+    </LiquidGlassProvider>
   );
 }
 
