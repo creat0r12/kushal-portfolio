@@ -1,405 +1,1214 @@
+/* =========================================================
+   HERO
+========================================================= */
+
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 100svh;
+
   display: flex;
   align-items: center;
+
   overflow: hidden;
-  padding: 8rem 0 3rem;
   isolation: isolate;
-}
-
-/* ==================================================
-   HERO BACKGROUND
-================================================== */
-
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: -20%;
-  z-index: -2;
 
   background:
     radial-gradient(
-      circle at 18% 42%,
-      rgba(255, 255, 255, 0.055),
-      transparent 24%
+      ellipse 70% 65% at 72% 42%,
+      rgba(255, 255, 255, 0.055) 0%,
+      rgba(255, 255, 255, 0.018) 32%,
+      transparent 68%
     ),
     radial-gradient(
-      circle at 82% 35%,
-      rgba(255, 255, 255, 0.03),
-      transparent 22%
+      ellipse 60% 55% at 12% 85%,
+      rgba(100, 120, 150, 0.025) 0%,
+      transparent 65%
+    ),
+    linear-gradient(
+      180deg,
+      #030303 0%,
+      #050505 48%,
+      #020202 100%
     );
-
-  pointer-events: none;
 }
 
-/* Technical grid */
 
-.hero::after {
-  content: "";
+/* =========================================================
+   ATMOSPHERIC LIGHT
+========================================================= */
+
+.hero__glow {
+  position: absolute;
+
+  width: 520px;
+  height: 520px;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  filter: blur(120px);
+  opacity: 0.11;
+
+  mix-blend-mode: screen;
+
+  will-change: transform;
+
+  animation:
+    heroGlow 14s ease-in-out infinite alternate;
+}
+
+
+.hero__glow--one {
+  top: -8%;
+  right: -4%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.38) 0%,
+      rgba(255, 255, 255, 0.12) 30%,
+      transparent 72%
+    );
+}
+
+
+.hero__glow--two {
+  left: -16%;
+  bottom: -28%;
+
+  width: 460px;
+  height: 460px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(110, 135, 170, 0.16) 0%,
+      rgba(90, 110, 140, 0.05) 35%,
+      transparent 72%
+    );
+
+  animation-delay: -6s;
+}
+
+
+/* =========================================================
+   SUBTLE TECHNICAL GRID
+========================================================= */
+
+.hero__grid {
   position: absolute;
   inset: 0;
-  z-index: -1;
 
-  opacity: 0.16;
+  pointer-events: none;
+
+  opacity: 0.055;
 
   background-image:
     linear-gradient(
-      rgba(255, 255, 255, 0.035) 1px,
+      rgba(255, 255, 255, 0.08) 1px,
       transparent 1px
     ),
     linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0.035) 1px,
+      rgba(255, 255, 255, 0.08) 1px,
       transparent 1px
     );
 
-  background-size: 80px 80px;
+  background-size: 100px 100px;
 
-  mask-image: linear-gradient(
-    to bottom,
-    black 0%,
-    rgba(0, 0, 0, 0.5) 45%,
-    transparent 100%
-  );
+  mask-image:
+    radial-gradient(
+      ellipse 75% 70% at 50% 45%,
+      black 0%,
+      rgba(0, 0, 0, 0.7) 45%,
+      transparent 82%
+    );
+
+  -webkit-mask-image:
+    radial-gradient(
+      ellipse 75% 70% at 50% 45%,
+      black 0%,
+      rgba(0, 0, 0, 0.7) 45%,
+      transparent 82%
+    );
+}
+
+
+/* =========================================================
+   VERY SUBTLE TOP VIGNETTE
+========================================================= */
+
+.hero::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
 
   pointer-events: none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.35),
+      transparent 25%,
+      transparent 75%,
+      rgba(0, 0, 0, 0.4)
+    );
+
+  z-index: 0;
 }
+
+
+/* =========================================================
+   INNER
+========================================================= */
 
 .hero__inner {
   position: relative;
+  z-index: 2;
+
   width: 100%;
+
+  padding-top: 120px;
+  padding-bottom: 36px;
+
+  box-sizing: border-box;
 }
 
-/* ==================================================
+
+/* =========================================================
    TOP
-================================================== */
+========================================================= */
 
 .hero__top {
+  width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 4.5rem;
+
+  gap: 40px;
+
+  margin-bottom: 72px;
+
+  animation:
+    heroFadeUp 0.9s ease both;
 }
 
-.hero__eyebrow,
-.hero__availability,
-.hero__bottom {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
+
+/* =========================================================
+   EYEBROW
+========================================================= */
 
 .hero__eyebrow {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
   margin: 0;
-  color: rgba(255, 255, 255, 0.48);
+
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.2em;
+
+  white-space: nowrap;
 }
+
+
+.hero__eyebrow-line {
+  width: 32px;
+  height: 1px;
+
+  flex-shrink: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.2)
+    );
+
+  transform-origin: left;
+
+  animation:
+    heroLineReveal 1s ease 0.3s both;
+}
+
+
+/* =========================================================
+   AVAILABILITY
+========================================================= */
 
 .hero__availability {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+
+  gap: 10px;
+
   margin: 0;
-  color: rgba(255, 255, 255, 0.48);
+
+  color: rgba(255, 255, 255, 0.58);
+
+  font-size: 12px;
+
+  white-space: nowrap;
 }
+
+
+/* Status */
 
 .hero__status {
+  position: relative;
+
   width: 7px;
   height: 7px;
-  flex: 0 0 7px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
   border-radius: 50%;
 
-  background: #8dffa9;
+  background: #9dffb8;
 
   box-shadow:
-    0 0 0 4px rgba(141, 255, 169, 0.055),
-    0 0 18px rgba(141, 255, 169, 0.55);
+    0 0 6px rgba(157, 255, 184, 0.85),
+    0 0 14px rgba(157, 255, 184, 0.3);
 }
 
-/* ==================================================
+
+.hero__status::before {
+  content: "";
+
+  position: absolute;
+  inset: -4px;
+
+  border: 1px solid rgba(157, 255, 184, 0.28);
+
+  border-radius: 50%;
+
+  animation:
+    statusPulse 2.2s ease-out infinite;
+}
+
+
+/* =========================================================
    MAIN
-================================================== */
+========================================================= */
 
 .hero__main {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.55fr);
-  gap: 5rem;
+
+  grid-template-columns:
+    minmax(0, 1.15fr)
+    minmax(320px, 0.55fr);
+
+  gap: clamp(50px, 7vw, 120px);
+
   align-items: end;
+
+  max-width: 1500px;
+
+  margin: 0 auto;
 }
 
-/* ==================================================
-   HEADLINE
-================================================== */
+
+/* =========================================================
+   TITLE WRAPPER
+========================================================= */
+
+.hero__title-wrap {
+  position: relative;
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   SECTION NUMBER
+========================================================= */
+
+.hero__number {
+  margin: 0 0 20px;
+
+  color: rgba(255, 255, 255, 0.35);
+
+  font-size: 10px;
+  font-weight: 500;
+
+  letter-spacing: 0.2em;
+
+  animation:
+    heroFadeUp 0.8s ease 0.15s both;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
 
 .hero__title {
-  max-width: 950px;
   margin: 0;
 
-  font-size: clamp(4.5rem, 8.3vw, 8.5rem);
-  line-height: 0.84;
-  letter-spacing: -0.085em;
-  font-weight: 700;
+  max-width: 900px;
+
+  color: #f5f5f5;
+
+  font-size:
+    clamp(
+      4rem,
+      7.8vw,
+      8.5rem
+    );
+
+  line-height: 0.87;
+
+  letter-spacing: -0.075em;
+
+  font-weight: 650;
+
+  overflow: visible;
 
   text-wrap: balance;
 }
 
-.hero__title span {
-  color: rgba(255, 255, 255, 0.48);
+
+/* =========================================================
+   TITLE LINE
+========================================================= */
+
+.hero__title-line {
+  display: block;
+
+  animation:
+    titleReveal
+    1s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    both;
 }
 
-/* ==================================================
+
+/* =========================================================
+   LETTER HOVER
+========================================================= */
+
+/*
+   Each character is wrapped inside .hero__letter.
+
+   Hovering a letter affects ONLY that letter.
+   No transform.
+   No size change.
+   No neighboring letter change.
+*/
+
+.hero__letter {
+  display: inline-block;
+
+  cursor: default;
+
+  transition:
+    filter 0.18s ease,
+    text-shadow 0.18s ease;
+}
+
+
+.hero__letter:hover {
+  filter: brightness(1.5);
+
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.22);
+}
+
+
+/* =========================================================
+   SECOND LINE
+========================================================= */
+
+.hero__title-line:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+
+/* =========================================================
+   TITLE ACCENT
+========================================================= */
+
+.hero__title-line--accent {
+  /*
+     The gradient is kept on the line itself.
+     Individual letters use their own neutral color
+     so hover can control them independently.
+  */
+
+  color: transparent;
+
+  background:
+    linear-gradient(
+      105deg,
+      #ffffff 0%,
+      #f4f4f4 28%,
+      #a8a8a8 55%,
+      #ffffff 78%,
+      #d8d8d8 100%
+    );
+
+  background-size: 220% 100%;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  filter:
+    drop-shadow(
+      0 0 24px rgba(255, 255, 255, 0.035)
+    );
+
+  animation:
+    titleReveal
+    1s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    0.12s
+    both,
+
+    titleShine
+    9s
+    ease-in-out
+    1.5s
+    infinite;
+}
+
+
+/* =========================================================
+   ACCENT LETTERS
+========================================================= */
+
+.hero__title-line--accent .hero__letter {
+  color: #d8d8d8;
+
+  background: none;
+
+  -webkit-background-clip: initial;
+  background-clip: initial;
+
+  transition:
+    color 0.18s ease,
+    filter 0.18s ease,
+    text-shadow 0.18s ease;
+}
+
+
+.hero__title-line--accent .hero__letter:hover {
+  color: #ffffff;
+
+  filter: brightness(1.45);
+
+  text-shadow:
+    0 0 14px rgba(255, 255, 255, 0.25);
+}
+
+
+/* =========================================================
    SIDE CONTENT
-================================================== */
+========================================================= */
 
 .hero__side {
-  padding-bottom: 0.35rem;
+  width: min(100%, 430px);
+
+  padding-bottom: 12px;
+
+  justify-self: end;
+
+  animation:
+    heroFadeUp 1s ease 0.35s both;
 }
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.hero__description-wrap {
+  display: flex;
+
+  gap: 14px;
+
+  margin-bottom: 32px;
+}
+
+
+.hero__description-line {
+  width: 1px;
+
+  flex-shrink: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.04)
+    );
+
+  opacity: 0.55;
+}
+
 
 .hero__description {
-  max-width: 430px;
+  max-width: 410px;
+
   margin: 0;
 
-  color: rgba(255, 255, 255, 0.54);
+  color: rgba(255, 255, 255, 0.68);
 
-  font-size: 0.98rem;
+  font-size: 15px;
+
   line-height: 1.8;
+
+  letter-spacing: -0.01em;
 }
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
 
 .hero__actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
 
-  margin-top: 2rem;
+  align-items: center;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
 }
 
+
+/* =========================================================
+   BUTTON BASE
+========================================================= */
+
 .hero__button {
+  position: relative;
+
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
 
-  gap: 0.65rem;
+  gap: 18px;
 
-  min-height: 47px;
-  padding: 0 1.2rem;
+  min-height: 46px;
 
-  border-radius: var(--radius-pill);
+  padding: 0 18px;
 
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  box-sizing: border-box;
+
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  text-decoration: none;
+
+  overflow: hidden;
 
   transition:
-    transform 300ms var(--ease-standard),
-    background 300ms ease,
-    border-color 300ms ease,
-    box-shadow 300ms ease;
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.hero__button:hover {
-  transform: translateY(-3px);
-}
 
-/* ==================================================
+/* =========================================================
    PRIMARY BUTTON
-================================================== */
+========================================================= */
 
 .hero__button--primary {
-  background: #f5f5f5;
   color: #050505;
 
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #e9e9e9
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.9);
+
   box-shadow:
-    0 8px 30px rgba(0, 0, 0, 0.25),
-    0 0 0 1px rgba(255, 255, 255, 0.08);
+    0 8px 25px rgba(255, 255, 255, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
+
+
+.hero__button--primary::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 70%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.65),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  transition:
+    left 0.55s ease;
+}
+
+
+.hero__button--primary:hover::before {
+  left: 140%;
+}
+
 
 .hero__button--primary:hover {
-  background: #ffffff;
+  transform: translateY(-2px);
 
   box-shadow:
-    0 12px 35px rgba(0, 0, 0, 0.35),
-    0 0 30px rgba(255, 255, 255, 0.07);
+    0 12px 35px rgba(255, 255, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
-/* ==================================================
-   SECONDARY BUTTON
-================================================== */
 
-.hero__button--secondary {
-  border: 1px solid rgba(255, 255, 255, 0.13);
-
-  color: rgba(255, 255, 255, 0.82);
-
-  background: rgba(255, 255, 255, 0.015);
+.hero__button--primary:active {
+  transform: scale(0.96);
 }
 
-.hero__button--secondary:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.24);
-}
 
-/* ==================================================
+/* =========================================================
    ARROW
-================================================== */
+========================================================= */
 
 .hero__arrow {
-  display: inline-block;
+  position: relative;
 
-  font-size: 1rem;
+  z-index: 1;
+
+  font-size: 18px;
+
   line-height: 1;
 
   transition:
-    transform 300ms var(--ease-standard);
+    transform 0.2s ease;
 }
 
-.hero__button:hover .hero__arrow {
-  transform: translate(3px, 3px);
+
+.hero__button--primary:hover .hero__arrow {
+  transform:
+    translate(3px, 3px);
 }
 
-/* ==================================================
+
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
+
+.hero__button--secondary {
+  color: rgba(255, 255, 255, 0.88);
+
+  background:
+    rgba(255, 255, 255, 0.035);
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+
+.hero__button--secondary:hover {
+  color: #ffffff;
+
+  background:
+    rgba(255, 255, 255, 0.075);
+
+  border-color:
+    rgba(255, 255, 255, 0.25);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 25px rgba(255, 255, 255, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+
+.hero__button--secondary:active {
+  transform: scale(0.96);
+}
+
+
+/* =========================================================
    SOCIALS
-================================================== */
+========================================================= */
 
 .hero__socials {
   display: flex;
-  gap: 0.5rem;
 
-  margin-top: 1.8rem;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 38px;
 }
 
-.hero__socials a {
+
+.hero__social-label {
+  margin-right: 5px;
+
+  color: rgba(255, 255, 255, 0.35);
+
+  font-size: 9px;
+
+  letter-spacing: 0.2em;
+}
+
+
+.hero__social {
+  width: 32px;
+  height: 32px;
+
   display: grid;
   place-items: center;
 
-  width: 36px;
-  height: 36px;
+  color: rgba(255, 255, 255, 0.55);
 
-  border: 1px solid rgba(255, 255, 255, 0.11);
+  font-size: 9px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  background:
+    rgba(255, 255, 255, 0.018);
+
+  border: 1px solid rgba(255, 255, 255, 0.09);
+
   border-radius: 50%;
 
-  color: rgba(255, 255, 255, 0.48);
-  background: rgba(255, 255, 255, 0.015);
-
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-
   transition:
-    color 250ms ease,
-    background 250ms ease,
-    border-color 250ms ease,
-    transform 250ms var(--ease-standard);
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.hero__socials a:hover {
+
+.hero__social:hover {
   color: #ffffff;
 
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.22);
+  background:
+    rgba(255, 255, 255, 0.075);
 
-  transform: translateY(-3px);
+  border-color:
+    rgba(255, 255, 255, 0.24);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 20px rgba(255, 255, 255, 0.04);
 }
 
-/* ==================================================
+
+.hero__social:active {
+  transform: scale(0.9);
+}
+
+
+/* =========================================================
    BOTTOM
-================================================== */
+========================================================= */
 
 .hero__bottom {
-  display: flex;
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    minmax(120px, 2fr)
+    auto;
+
   align-items: center;
-  gap: 1rem;
 
-  margin-top: 5.5rem;
+  gap: 20px;
 
-  color: rgba(255, 255, 255, 0.28);
+  margin-top: 90px;
+
+  color: rgba(255, 255, 255, 0.36);
+
+  font-size: 9px;
+
+  letter-spacing: 0.2em;
+
+  animation:
+    heroFadeUp 1s ease 0.7s both;
 }
+
+
+.hero__scroll {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+}
+
+
+.hero__scroll-dot {
+  width: 5px;
+  height: 5px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 8px rgba(255, 255, 255, 0.5);
+
+  animation:
+    scrollPulse 1.8s ease-in-out infinite;
+}
+
 
 .hero__line {
-  width: 90px;
+  position: relative;
+
   height: 1px;
 
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.18),
-    transparent
-  );
+  overflow: hidden;
+
+  background:
+    rgba(255, 255, 255, 0.075);
 }
 
-/* ==================================================
-   TABLET
-================================================== */
 
-@media (max-width: 1000px) {
+.hero__line span {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 18%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.7),
+      transparent
+    );
+
+  animation:
+    lineTravel 3.8s ease-in-out infinite;
+}
+
+
+.hero__year {
+  white-space: nowrap;
+
+  color: rgba(255, 255, 255, 0.32);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+@keyframes titleReveal {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(110%)
+      skewY(3deg);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      skewY(0);
+  }
+}
+
+
+@keyframes heroLineReveal {
+  from {
+    transform:
+      scaleX(0);
+  }
+
+  to {
+    transform:
+      scaleX(1);
+  }
+}
+
+
+@keyframes statusPulse {
+  0% {
+    opacity: 0.8;
+
+    transform:
+      scale(0.7);
+  }
+
+  70% {
+    opacity: 0;
+
+    transform:
+      scale(1.55);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      scale(1.55);
+  }
+}
+
+
+@keyframes scrollPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform:
+      translateY(3px);
+  }
+}
+
+
+@keyframes lineTravel {
+  0% {
+    transform:
+      translateX(-130%);
+  }
+
+  50% {
+    transform:
+      translateX(480%);
+  }
+
+  100% {
+    transform:
+      translateX(480%);
+  }
+}
+
+
+@keyframes titleShine {
+  0%,
+  70%,
+  100% {
+    background-position:
+      220% 0;
+  }
+
+  85% {
+    background-position:
+      -40% 0;
+  }
+}
+
+
+@keyframes heroGlow {
+  from {
+    transform:
+      translate3d(0, 0, 0)
+      scale(1);
+  }
+
+  to {
+    transform:
+      translate3d(28px, -22px, 0)
+      scale(1.08);
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
   .hero__main {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 50px;
   }
 
   .hero__side {
-    max-width: 560px;
-  }
-
-  .hero__title {
-    max-width: 850px;
-  }
-}
-
-/* ==================================================
-   SMALL TABLET
-================================================== */
-
-@media (max-width: 800px) {
-  .hero {
-    padding-top: 7rem;
-  }
-
-  .hero__top {
-    margin-bottom: 4rem;
-  }
-
-  .hero__title {
-    font-size: clamp(4rem, 14vw, 7rem);
+    width: min(100%, 600px);
+    justify-self: start;
   }
 
   .hero__bottom {
-    margin-top: 4.5rem;
+    margin-top: 70px;
   }
 }
 
-/* ==================================================
-   MOBILE
-================================================== */
 
-@media (max-width: 600px) {
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
   .hero {
-    min-height: auto;
-    padding-bottom: 3.5rem;
+    min-height: 100svh;
   }
 
-  /* Remove grid on mobile for better performance */
-  .hero::after {
-    display: none;
+  .hero__inner {
+    padding-top: 110px;
+    padding-bottom: 28px;
   }
 
   .hero__top {
     align-items: flex-start;
     flex-direction: column;
-    gap: 1rem;
+    gap: 16px;
+    margin-bottom: 55px;
+  }
+
+  .hero__eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.16em;
   }
 
   .hero__availability {
-    font-size: 0.62rem;
+    font-size: 11px;
   }
 
   .hero__title {
-    font-size: clamp(3.5rem, 17vw, 5.5rem);
-    line-height: 0.88;
+    font-size:
+      clamp(
+        3.8rem,
+        16vw,
+        6rem
+      );
+
+    line-height: 0.9;
+  }
+
+  .hero__main {
+    gap: 42px;
   }
 
   .hero__description {
-    font-size: 0.92rem;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .hero__actions {
+    width: 100%;
+  }
+
+  .hero__button {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .hero__socials {
+    margin-top: 28px;
+  }
+
+  .hero__bottom {
+    grid-template-columns:
+      1fr
+      auto;
+
+    margin-top: 65px;
+  }
+
+  .hero__line {
+    display: none;
+  }
+
+  .hero__year {
+    justify-self: end;
+  }
+
+  .hero__glow {
+    width: 280px;
+    height: 280px;
+
+    filter: blur(85px);
+    opacity: 0.08;
+  }
+
+  .hero__grid {
+    background-size:
+      60px 60px;
+
+    opacity: 0.045;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .hero__inner {
+    padding-top: 105px;
+  }
+
+  .hero__top {
+    margin-bottom: 45px;
+  }
+
+  .hero__title {
+    font-size: 3.5rem;
   }
 
   .hero__actions {
@@ -411,11 +1220,84 @@
     width: 100%;
   }
 
-  .hero__bottom {
-    margin-top: 4rem;
+  .hero__description {
+    font-size: 13px;
+    line-height: 1.7;
   }
 
-  .hero__line {
-    flex: 1;
+  .hero__bottom {
+    margin-top: 55px;
   }
+
+  .hero__scroll {
+    font-size: 8px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .hero *,
+  .hero::before,
+  .hero::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   SMALL TEXT HOVER
+========================================================= */
+
+.hero__small-word {
+  display: inline-block;
+
+  color: rgba(255, 255, 255, 0.72);
+
+  cursor: default;
+
+  transition:
+    color 0.2s ease,
+    filter 0.2s ease,
+    text-shadow 0.2s ease;
+}
+
+.hero__small-word:hover {
+  color: #ffffff;
+
+  filter: brightness(1.35);
+
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.18);
+}
+
+
+/* Availability text */
+
+.hero__availability .hero__small-word {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.hero__availability .hero__small-word:hover {
+  color: #ffffff;
+
+  filter: brightness(1.4);
+
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.16);
+}
+
+
+/* Separators */
+
+.hero__separator {
+  display: inline-block;
+
+  color: rgba(255, 255, 255, 0.25);
+
+  user-select: none;
 }

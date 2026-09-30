@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 import Navbar from "./components/navigation/Navbar";
 import Hero from "./components/hero/Hero";
 import Projects from "./components/projects/Projects";
@@ -12,51 +10,43 @@ import Footer from "./components/common/Footer";
 
 import Reveal from "./animations/Reveal";
 
-import { LiquidGlassProvider } from "./components/Glass/LiquidGlassProvider";
-
 function App() {
-  const backgroundRef = useRef<HTMLDivElement>(null);
-
   return (
-    <LiquidGlassProvider>
-      <div ref={backgroundRef}>
+    <div>
+      <Navbar />
 
-        <Navbar backgroundRef={backgroundRef} />
+      <main>
+        <Reveal>
+          <Hero />
+        </Reveal>
 
-        <main>
-          <Reveal>
-            <Hero />
-          </Reveal>
+        <Reveal>
+          <Projects />
+        </Reveal>
 
-          <Reveal>
-            <Projects />
-          </Reveal>
+        <Reveal>
+          <About />
+        </Reveal>
 
-          <Reveal>
-            <About />
-          </Reveal>
+        <Reveal>
+          <Skills />
+        </Reveal>
 
-          <Reveal>
-            <Skills />
-          </Reveal>
+        <Reveal>
+          <Experience />
+        </Reveal>
 
-          <Reveal>
-            <Experience />
-          </Reveal>
+        <Reveal>
+          <Education />
+        </Reveal>
 
-          <Reveal>
-            <Education />
-          </Reveal>
+        <Reveal>
+          <Contact />
+        </Reveal>
+      </main>
 
-          <Reveal>
-            <Contact />
-          </Reveal>
-        </main>
-
-        <Footer />
-
-      </div>
-    </LiquidGlassProvider>
+      <Footer />
+    </div>
   );
 }
 

@@ -1,267 +1,500 @@
-/* =========================================
+/* =========================================================
    NAVBAR
-   Structure + positioning only.
-   Glass is handled entirely by <Glass />.
-   ========================================= */
+========================================================= */
 
 .navbar {
   position: fixed;
-  top: 22px;
+  top: 0;
   left: 0;
-  right: 0;
+
+  width: 100%;
 
   z-index: 1000;
 
-  display: flex;
-  justify-content: center;
+  padding: 20px 24px;
 
-  pointer-events: none;
+  box-sizing: border-box;
 }
 
 
-/* =========================================
-   NAVBAR CONTENT
-   ========================================= */
+/* =========================================================
+   NAVBAR GLASS
+========================================================= */
 
 .navbar__inner {
+  --rotate-x: 0deg;
+  --rotate-y: 0deg;
+
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+
+  position: relative;
+
+  width: min(1100px, 92%);
+  height: 64px;
+
+  margin: 0 auto;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  width: 100%;
-  height: 100%;
 
   padding: 0 24px;
 
   box-sizing: border-box;
 
-  pointer-events: auto;
+  /* -------------------------------------------------------
+     GLASS
+  ------------------------------------------------------- */
+
+  background: rgba(20, 20, 24, 0.62);
+
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  border-radius: 16px;
+
+  /* -------------------------------------------------------
+     3D TILT
+  ------------------------------------------------------- */
+
+  transform:
+    perspective(900px)
+    rotateX(var(--rotate-x))
+    rotateY(var(--rotate-y))
+    scale(1);
+
+  transform-style: preserve-3d;
+
+  /* -------------------------------------------------------
+     TRANSITIONS
+  ------------------------------------------------------- */
+
+  transition:
+    transform 0.18s ease-out,
+    box-shadow 0.25s ease;
+
+  /* -------------------------------------------------------
+     AMBIENT LIGHT
+  ------------------------------------------------------- */
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.22),
+    0 0 25px rgba(255, 255, 255, 0.05),
+    0 18px 55px rgba(255, 255, 255, 0.06);
+
+  overflow: visible;
+
+  will-change: transform;
 }
 
 
-/* =========================================
+/* =========================================================
+   LOCAL CURSOR LIGHT
+========================================================= */
+
+.navbar__inner::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: inherit;
+
+  background:
+    radial-gradient(
+      circle 100px at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.08) 25%,
+      rgba(255, 255, 255, 0.025) 50%,
+      transparent 75%
+    );
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: opacity 0.15s ease;
+
+  z-index: 0;
+}
+
+.navbar__inner:hover::before {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   AMBIENT LIGHT EMISSION
+========================================================= */
+
+.navbar__inner::after {
+  content: "";
+
+  position: absolute;
+
+  left: 8%;
+  right: 8%;
+
+  bottom: -22px;
+
+  height: 45px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  filter: blur(28px);
+
+  border-radius: 50%;
+
+  opacity: 0.65;
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+
+/* =========================================================
+   CONTENT LAYER
+========================================================= */
+
+.navbar__logo,
+.navbar__links,
+.navbar__menu {
+  position: relative;
+
+  z-index: 1;
+}
+
+
+/* =========================================================
    LOGO
-   ========================================= */
+========================================================= */
 
 .navbar__logo {
-  display: inline-flex;
-  align-items: center;
+  color: var(--text-h);
 
-  flex-shrink: 0;
+  font-size: 22px;
+  font-weight: 700;
 
-  color: #fff;
+  letter-spacing: -0.5px;
+
   text-decoration: none;
 
-  font-size: 18px;
-  line-height: 1;
-  font-weight: 600;
-  letter-spacing: -0.04em;
-
-  white-space: nowrap;
-
   transition:
-    opacity 0.25s ease,
+    text-shadow 0.25s ease,
     transform 0.25s ease;
 }
 
 .navbar__logo span {
-  color: #fff;
+  color: var(--accent);
 }
 
 .navbar__logo:hover {
-  opacity: 0.8;
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.3);
+
   transform: translateY(-1px);
 }
 
 
-/* =========================================
+/* =========================================================
    DESKTOP LINKS
-   ========================================= */
+========================================================= */
 
 .navbar__links {
   display: flex;
+
   align-items: center;
-  justify-content: center;
 
-  gap: 34px;
-
-  margin: 0;
+  gap: 32px;
 }
 
 .navbar__links a {
-  display: inline-flex;
-  align-items: center;
+  color: var(--text);
 
-  color: rgba(255, 255, 255, 0.82);
+  font-size: 15px;
 
   text-decoration: none;
 
-  font-size: 14px;
-  line-height: 1;
-  font-weight: 400;
-
-  white-space: nowrap;
-
   transition:
     color 0.25s ease,
-    opacity 0.25s ease,
+    text-shadow 0.25s ease,
     transform 0.25s ease;
 }
 
 .navbar__links a:hover {
-  color: #fff;
+  color: var(--text-h);
+
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.35);
+
   transform: translateY(-1px);
 }
 
 
-/* =========================================
-   MOBILE MENU BUTTON
-   ========================================= */
+/* =========================================================
+   MENU BUTTON
+========================================================= */
 
 .navbar__menu {
   display: none;
 
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
 
   padding: 0;
 
-  color: #fff;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--text-h);
 
   background: transparent;
-  border: 0;
+
+  border: none;
 
   cursor: pointer;
-  pointer-events: auto;
 
   transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
+    opacity 0.25s ease,
+    filter 0.25s ease,
+    transform 0.15s ease;
 }
 
 .navbar__menu:hover {
-  opacity: 0.75;
+  opacity: 0.8;
+
+  filter:
+    drop-shadow(
+      0 0 8px rgba(255, 255, 255, 0.3)
+    );
 }
+
+
+/* =========================================================
+   MENU BUTTON PRESS
+========================================================= */
 
 .navbar__menu:active {
-  transform: scale(0.94);
+  transform: scale(0.88);
 }
 
 
-/* =========================================
-   MOBILE NAVIGATION
-   ========================================= */
+/* =========================================================
+   NAVBAR PRESS EFFECT
+========================================================= */
+
+.navbar__inner:active {
+  transform:
+    perspective(900px)
+    rotateX(var(--rotate-x))
+    rotateY(var(--rotate-y))
+    scale(0.985);
+
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    0 0 18px rgba(255, 255, 255, 0.04);
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
 
 .navbar__mobile {
   display: none;
-
-  width: 100%;
-  margin-top: 10px;
-
-  pointer-events: auto;
-}
-
-.navbar__mobile.is-open {
-  display: block;
-}
-
-.navbar__mobile nav {
-  display: flex;
-  flex-direction: column;
-
-  gap: 2px;
-
-  padding: 8px 0;
-}
-
-.navbar__mobile a {
-  display: flex;
-  align-items: center;
-
-  min-height: 44px;
-  width: 100%;
-
-  padding: 0 16px;
-
-  color: rgba(255, 255, 255, 0.82);
-
-  text-decoration: none;
-
-  font-size: 14px;
-  line-height: 1;
-  font-weight: 400;
-
-  transition:
-    color 0.2s ease,
-    opacity 0.2s ease;
-}
-
-.navbar__mobile a:hover {
-  color: #fff;
 }
 
 
-/* =========================================
-   TABLET / MOBILE
-   ========================================= */
+/* =========================================================
+   MOBILE
+========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
+
   .navbar {
-    top: 14px;
+    padding: 12px 16px;
   }
+
+
+  /* -------------------------------------------------------
+     MOBILE NAVBAR
+  ------------------------------------------------------- */
 
   .navbar__inner {
-    padding: 0 18px;
+    width: 100%;
+
+    height: 58px;
+
+    padding: 0 16px;
+
+    border-radius: 14px;
+
+    /* Disable 3D tilt on touch devices */
+    transform: none;
+
+    transition:
+      box-shadow 0.25s ease;
   }
+
+
+  /* Disable cursor light */
+  .navbar__inner::before {
+    display: none;
+  }
+
+
+  /* -------------------------------------------------------
+     DESKTOP LINKS
+  ------------------------------------------------------- */
 
   .navbar__links {
     display: none;
   }
 
+
+  /* -------------------------------------------------------
+     MOBILE MENU BUTTON
+  ------------------------------------------------------- */
+
   .navbar__menu {
     display: flex;
   }
+
+
+  /* =======================================================
+     MOBILE DROPDOWN
+  ======================================================= */
+
+  .navbar__mobile {
+    display: block;
+
+    width: 100%;
+
+    max-height: 0;
+
+    margin-top: 8px;
+
+    padding: 0;
+
+    overflow: hidden;
+
+    opacity: 0;
+
+    transform: translateY(-8px);
+
+    background: rgba(20, 20, 24, 0.62);
+
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+
+    border: 1px solid transparent;
+
+    border-radius: 14px;
+
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.2),
+      0 0 25px rgba(255, 255, 255, 0.04);
+
+    transition:
+      max-height 0.3s ease,
+      opacity 0.25s ease,
+      transform 0.3s ease,
+      padding 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+
+  /* -------------------------------------------------------
+     MOBILE DROPDOWN OPEN
+  ------------------------------------------------------- */
+
+  .navbar__mobile.is-open {
+    max-height: 300px;
+
+    padding: 12px;
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+
+  /* -------------------------------------------------------
+     MOBILE NAV
+  ------------------------------------------------------- */
+
+  .navbar__mobile nav {
+    display: flex;
+
+    flex-direction: column;
+  }
+
+
+  /* -------------------------------------------------------
+     MOBILE LINKS
+  ------------------------------------------------------- */
+
+  .navbar__mobile a {
+    display: block;
+
+    padding: 14px 12px;
+
+    color: var(--text);
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    transition:
+      color 0.2s ease,
+      background 0.2s ease,
+      text-shadow 0.2s ease,
+      transform 0.15s ease;
+  }
+
+  .navbar__mobile a:hover {
+    color: var(--text-h);
+
+    background: var(--accent-bg);
+
+    text-shadow:
+      0 0 10px rgba(255, 255, 255, 0.25);
+  }
+
+
+  /* -------------------------------------------------------
+     MOBILE LINK PRESS
+  ------------------------------------------------------- */
+
+  .navbar__mobile a:active {
+    transform: scale(0.98);
+  }
 }
 
 
-/* =========================================
-   SMALL MOBILE
-   ========================================= */
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
 
-@media (max-width: 420px) {
-  .navbar {
-    top: 10px;
+@media (prefers-reduced-motion: reduce) {
+
+  .navbar__inner,
+  .navbar__links a,
+  .navbar__logo,
+  .navbar__menu,
+  .navbar__mobile,
+  .navbar__mobile a {
+    transition: none;
   }
 
   .navbar__inner {
-    padding: 0 15px;
-  }
-
-  .navbar__logo {
-    font-size: 17px;
-  }
-
-  .navbar__menu {
-    width: 42px;
-    height: 42px;
-  }
-}
-
-
-/* =========================================
-   REDUCED MOTION
-   ========================================= */
-
-@media (prefers-reduced-motion: reduce) {
-  .navbar__logo,
-  .navbar__links ,
-  .navbar__menu,
-  .navbar__mobile a {
-    transition: none;
+    transform: none !important;
   }
 }

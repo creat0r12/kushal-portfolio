@@ -54,8 +54,20 @@
 *::before,
 *::after {
   box-sizing: border-box;
+
+  /* Prevent text selection across the app */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
+html,
+body,
+#root,
+* {
+  cursor: default !important;
+}
 html {
   scroll-behavior: smooth;
   scrollbar-width: none;
