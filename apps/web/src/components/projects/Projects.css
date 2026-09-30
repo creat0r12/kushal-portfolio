@@ -1,193 +1,1165 @@
+/* ========================================
+   PROJECTS
+======================================== */
+
 .projects {
-  padding: 9rem 0;
+  position: relative;
+
+  padding: 10rem 0;
+
+  overflow: hidden;
 }
+
+
+/* ========================================
+   HEADER
+======================================== */
 
 .projects__header {
   display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 4rem;
+
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 420px);
+
   align-items: end;
-  margin-bottom: 5rem;
+
+  gap: 4rem;
+
+  margin-bottom: 7rem;
+}
+
+
+/* ========================================
+   HEADING
+======================================== */
+
+.projects__heading {
+  position: relative;
 }
 
 .projects__eyebrow {
-  margin: 0 0 1.5rem;
-  color: var(--color-text-muted);
-  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin: 0 0 2rem;
+
+  color:
+    rgba(255, 255, 255, 0.5);
+
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.16em;
+
+  letter-spacing: 0.22em;
+
+  text-transform: uppercase;
+
+  animation:
+    projectsFadeUp
+    0.8s
+    var(--ease-smooth)
+    both;
 }
+
+
+.projects__eyebrow-line {
+  width: 36px;
+  height: 1px;
+
+  background:
+    rgba(255, 255, 255, 0.45);
+
+  transform-origin: left;
+
+  animation:
+    projectsLineReveal
+    1s
+    var(--ease-smooth)
+    0.15s
+    both;
+}
+
+
+/* ========================================
+   SECTION NUMBER
+======================================== */
+
+.projects__heading > .projects__number {
+  display: block;
+
+  margin-bottom: 1rem;
+
+  color:
+    rgba(255, 255, 255, 0.22);
+
+  font-size: 11px;
+  font-weight: 500;
+
+  letter-spacing: 0.18em;
+
+  animation:
+    projectsFadeUp
+    0.8s
+    var(--ease-smooth)
+    0.1s
+    both;
+}
+
+
+/* ========================================
+   MAIN TITLE
+======================================== */
 
 .projects__title {
   margin: 0;
-  font-size: clamp(3.5rem, 8vw, 7rem);
-  line-height: 0.9;
-  letter-spacing: -0.07em;
+
+  color:
+    #f5f5f5;
+
+  font-size:
+    clamp(4rem, 9vw, 8rem);
+
+  font-weight: 600;
+
+  line-height: 0.88;
+
+  letter-spacing: -0.065em;
+
+  animation:
+    projectsTitleReveal
+    1s
+    var(--ease-smooth)
+    0.15s
+    both;
 }
+
 
 .projects__title span {
-  color: var(--color-text-muted);
+  color: transparent;
+
+  background:
+    linear-gradient(
+      105deg,
+      #ffffff 0%,
+      #eeeeee 28%,
+      #999999 55%,
+      #ffffff 78%,
+      #cccccc 100%
+    );
+
+  background-size: 220% 100%;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  animation:
+    projectsTitleShine
+    9s
+    ease-in-out
+    1.5s
+    infinite;
 }
+
+
+/* ========================================
+   INTRO
+======================================== */
 
 .projects__intro {
-  margin: 0;
-  color: var(--color-text-muted);
-  font-size: 0.95rem;
-  line-height: 1.7;
+  max-width: 420px;
+
+  margin: 0 0 0 auto;
+
+  color:
+    rgba(255, 255, 255, 0.48);
+
+  font-size: 15px;
+
+  line-height: 1.8;
+
+  letter-spacing: -0.01em;
+
+  animation:
+    projectsFadeUp
+    0.9s
+    var(--ease-smooth)
+    0.3s
+    both;
 }
+
+
+/* ========================================
+   PROJECT LIST
+======================================== */
 
 .projects__list {
-  border-top: 1px solid var(--color-border);
+  position: relative;
+
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.12);
 }
+
+
+/* ========================================
+   PROJECT
+======================================== */
 
 .project {
+  position: relative;
+
   display: block;
-  padding: 2rem 0 2.5rem;
-  border-bottom: 1px solid var(--color-border);
+
+  padding: 2.8rem 0;
+
   color: inherit;
+
   text-decoration: none;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.1);
+
+  overflow: hidden;
+
+  isolation: isolate;
+
   transition:
-    padding var(--duration-normal) var(--ease-standard),
-    background var(--duration-normal) ease;
+    padding
+    0.55s
+    var(--ease-smooth),
+
+    border-color
+    0.4s
+    ease;
 }
 
-.project:hover {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-  background: var(--color-surface);
+
+/* ========================================
+   PROJECT LIGHT SWEEP
+======================================== */
+
+.project::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      100deg,
+      transparent 0%,
+      transparent 35%,
+      rgba(255, 255, 255, 0.035) 48%,
+      transparent 62%,
+      transparent 100%
+    );
+
+  transform:
+    translateX(-100%);
+
+  pointer-events: none;
+
+  z-index: 0;
+
+  transition:
+    transform
+    0.9s
+    var(--ease-smooth);
 }
+
+
+.project:hover::before {
+  transform:
+    translateX(100%);
+}
+
+
+/* ========================================
+   PROJECT AMBIENT GLOW
+======================================== */
+
+.project::after {
+  content: "";
+
+  position: absolute;
+
+  width: 320px;
+  height: 180px;
+
+  left: 30%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.045),
+      transparent 70%
+    );
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 0;
+
+  transition:
+    opacity
+    0.5s
+    ease;
+}
+
+
+.project:hover::after {
+  opacity: 1;
+}
+
+
+/* ========================================
+   HUGE BACKGROUND NUMBER
+======================================== */
+
+.project__ghost-number {
+  position: absolute;
+
+  right: -2rem;
+
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+
+  color:
+    rgba(255, 255, 255, 0.018);
+
+  font-size:
+    clamp(8rem, 20vw, 18rem);
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  letter-spacing: -0.08em;
+
+  pointer-events: none;
+
+  user-select: none;
+
+  z-index: 0;
+
+  transition:
+    transform
+    0.9s
+    var(--ease-smooth),
+
+    color
+    0.5s
+    ease;
+}
+
+
+.project:hover .project__ghost-number {
+  color:
+    rgba(255, 255, 255, 0.035);
+
+  transform:
+    translateY(-50%)
+    translateX(-20px);
+}
+
+
+/* ========================================
+   PROJECT TOP
+======================================== */
 
 .project__top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 3.5rem;
-}
+  position: relative;
 
-.project__number,
-.project__status {
-  color: var(--color-text-muted);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-}
+  z-index: 2;
 
-.project__status {
-  padding: 0.4rem 0.65rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-}
-
-.project__main {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 3rem;
-  align-items: end;
+
+  grid-template-columns:
+    70px
+    1fr
+    auto;
+
+  align-items: center;
+
+  gap: 2rem;
+
+  margin-bottom: 2.5rem;
 }
 
-.project__content {
-  max-width: 700px;
+
+/* ========================================
+   PROJECT NUMBER
+======================================== */
+
+.project__number {
+  color:
+    rgba(255, 255, 255, 0.3);
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.15em;
+
+  transition:
+    color
+    0.3s
+    ease,
+
+    transform
+    0.4s
+    var(--ease-smooth);
 }
+
+
+.project:hover .project__number {
+  color:
+    #ffffff;
+
+  transform:
+    translateX(4px);
+}
+
+
+/* ========================================
+   PROJECT CATEGORY
+======================================== */
 
 .project__category {
-  margin: 0 0 0.75rem;
-  color: var(--color-text-muted);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  color:
+    rgba(255, 255, 255, 0.35);
+
+  font-size: 9px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.18em;
+
   text-transform: uppercase;
+
+  transition:
+    color
+    0.3s
+    ease,
+
+    transform
+    0.45s
+    var(--ease-smooth);
 }
+
+
+.project:hover .project__category {
+  color:
+    rgba(255, 255, 255, 0.65);
+
+  transform:
+    translateX(4px);
+}
+
+
+/* ========================================
+   PROJECT STATUS
+======================================== */
+
+.project__status {
+  justify-self: end;
+
+  color:
+    rgba(255, 255, 255, 0.32);
+
+  font-size: 9px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.16em;
+
+  text-transform: uppercase;
+
+  transition:
+    color
+    0.3s
+    ease;
+}
+
+
+.project:hover .project__status {
+  color:
+    rgba(255, 255, 255, 0.6);
+}
+
+
+/* ========================================
+   PROJECT MAIN
+======================================== */
+
+.project__main {
+  position: relative;
+
+  z-index: 2;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+
+  align-items: end;
+
+  gap: 3rem;
+}
+
+
+/* ========================================
+   PROJECT CONTENT
+======================================== */
+
+.project__content {
+  min-width: 0;
+}
+
+
+/* ========================================
+   PROJECT TITLE
+======================================== */
 
 .project__title {
-  margin: 0;
-  font-size: clamp(2rem, 5vw, 4.5rem);
+  margin: 0 0 1rem;
+
+  color:
+    #f5f5f5;
+
+  font-size:
+    clamp(2rem, 5vw, 4.5rem);
+
+  font-weight: 500;
+
   line-height: 0.95;
-  letter-spacing: -0.06em;
+
+  letter-spacing: -0.055em;
+
+  transition:
+    color
+    0.3s
+    ease,
+
+    transform
+    0.55s
+    var(--ease-smooth),
+
+    text-shadow
+    0.4s
+    ease;
 }
 
-.project__description {
-  max-width: 560px;
-  margin: 1.5rem 0 0;
-  color: var(--color-text-muted);
-  line-height: 1.7;
+
+.project:hover .project__title {
+  color:
+    #ffffff;
+
+  transform:
+    translateX(8px);
+
+  text-shadow:
+    0 0 30px
+    rgba(255, 255, 255, 0.045);
 }
+
+
+/* ========================================
+   DESCRIPTION
+======================================== */
+
+.project__description {
+  max-width: 600px;
+
+  margin: 0;
+
+  color:
+    rgba(255, 255, 255, 0.4);
+
+  font-size: 14px;
+
+  line-height: 1.75;
+
+  transition:
+    color
+    0.3s
+    ease,
+
+    transform
+    0.55s
+    var(--ease-smooth);
+}
+
+
+.project:hover .project__description {
+  color:
+    rgba(255, 255, 255, 0.55);
+
+  transform:
+    translateX(8px);
+}
+
+
+/* ========================================
+   PROJECT META
+======================================== */
 
 .project__meta {
   display: flex;
+
   align-items: center;
-  gap: 1rem;
-  color: var(--color-text-muted);
-  font-size: 0.75rem;
+
+  gap: 1.5rem;
 }
+
+
+/* ========================================
+   YEAR
+======================================== */
+
+.project__year {
+  color:
+    rgba(255, 255, 255, 0.3);
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.12em;
+
+  transition:
+    color
+    0.3s
+    ease;
+}
+
+
+.project:hover .project__year {
+  color:
+    rgba(255, 255, 255, 0.6);
+}
+
+
+/* ========================================
+   ARROW
+======================================== */
 
 .project__arrow {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border: 1px solid var(--color-border);
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  color:
+    rgba(255, 255, 255, 0.45);
+
+  font-size: 18px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
   border-radius: 50%;
-  color: var(--color-text);
-  font-size: 1rem;
+
+  background:
+    rgba(255, 255, 255, 0.02);
+
   transition:
-    transform var(--duration-normal) var(--ease-standard),
-    background var(--duration-normal) ease;
+    color
+    0.3s
+    ease,
+
+    border-color
+    0.3s
+    ease,
+
+    background
+    0.3s
+    ease,
+
+    transform
+    0.55s
+    var(--ease-smooth);
 }
+
 
 .project:hover .project__arrow {
-  transform: translate(3px, -3px);
-  background: var(--color-text);
-  color: var(--color-bg);
+  color:
+    #ffffff;
+
+  border-color:
+    rgba(255, 255, 255, 0.25);
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  transform:
+    translate(5px, -5px);
 }
 
-@media (max-width: 800px) {
+
+/* ========================================
+   PROJECT BOTTOM
+======================================== */
+
+.project__bottom {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 1rem;
+
+  margin-top: 2.5rem;
+}
+
+
+/* ========================================
+   PROJECT LINE
+======================================== */
+
+.project__line {
+  width: 45px;
+  height: 1px;
+
+  background:
+    rgba(255, 255, 255, 0.25);
+
+  transform-origin: left;
+
+  transition:
+    width
+    0.6s
+    var(--ease-smooth),
+
+    background
+    0.4s
+    ease;
+}
+
+
+.project:hover .project__line {
+  width: 100px;
+
+  background:
+    rgba(255, 255, 255, 0.65);
+}
+
+
+/* ========================================
+   VIEW PROJECT
+======================================== */
+
+.project__explore {
+  color:
+    rgba(255, 255, 255, 0.25);
+
+  font-size: 8px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.2em;
+
+  opacity: 0.7;
+
+  transition:
+    color
+    0.3s
+    ease,
+
+    transform
+    0.5s
+    var(--ease-smooth);
+}
+
+
+.project:hover .project__explore {
+  color:
+    rgba(255, 255, 255, 0.6);
+
+  transform:
+    translateX(5px);
+}
+
+
+/* ========================================
+   ANIMATIONS
+======================================== */
+
+@keyframes projectsFadeUp {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+@keyframes projectsTitleReveal {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(45px)
+      skewY(2deg);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      skewY(0);
+  }
+}
+
+
+@keyframes projectsLineReveal {
+  from {
+    opacity: 0;
+
+    transform:
+      scaleX(0);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scaleX(1);
+  }
+}
+
+
+@keyframes projectsTitleShine {
+  0% {
+    background-position:
+      100% 50%;
+  }
+
+  45% {
+    background-position:
+      0% 50%;
+  }
+
+  100% {
+    background-position:
+      100% 50%;
+  }
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 900px) {
   .projects {
-    padding: 7rem 0;
+    padding: 8rem 0;
   }
 
   .projects__header {
-    grid-template-columns: 1fr;
+    grid-template-columns:
+      1fr;
+
     gap: 2rem;
-    margin-bottom: 4rem;
+
+    margin-bottom: 5rem;
   }
 
   .projects__intro {
-    max-width: 500px;
-  }
-
-  .project__main {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    margin-left: 0;
   }
 
   .project__top {
-    margin-bottom: 2.5rem;
+    grid-template-columns:
+      60px
+      1fr
+      auto;
+
+    gap: 1.5rem;
+  }
+
+  .project__main {
+    gap: 2rem;
   }
 }
 
-@media (max-width: 600px) {
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 700px) {
   .projects {
     padding: 6rem 0;
   }
 
+  .projects__header {
+    margin-bottom: 4rem;
+  }
+
   .projects__title {
-    font-size: clamp(3.25rem, 17vw, 5.5rem);
+    font-size:
+      clamp(3.5rem, 16vw, 5.5rem);
+  }
+
+  .projects__intro {
+    max-width: 100%;
+
+    margin-top: 1.5rem;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+  }
+
+
+  /* -----------------------------
+     PROJECT
+  ----------------------------- */
+
+  .project {
+    padding: 2rem 0;
+  }
+
+
+  /* -----------------------------
+     TOP
+  ----------------------------- */
+
+  .project__top {
+    grid-template-columns:
+      45px
+      1fr
+      auto;
+
+    gap: 1rem;
+
+    margin-bottom: 2rem;
+  }
+
+
+  .project__category {
+    font-size: 8px;
+
+    letter-spacing: 0.14em;
+  }
+
+
+  .project__status {
+    font-size: 8px;
+
+    letter-spacing: 0.12em;
+  }
+
+
+  /* -----------------------------
+     MAIN
+  ----------------------------- */
+
+  .project__main {
+    grid-template-columns:
+      1fr;
+
+    gap: 1.5rem;
+  }
+
+
+  .project__title {
+    font-size:
+      clamp(2rem, 10vw, 3.4rem);
+  }
+
+
+  .project__description {
+    font-size: 13px;
+
+    line-height: 1.7;
+  }
+
+
+  /* -----------------------------
+     META
+  ----------------------------- */
+
+  .project__meta {
+    justify-content: space-between;
+
+    width: 100%;
+  }
+
+
+  .project__arrow {
+    width: 38px;
+    height: 38px;
+
+    font-size: 16px;
+  }
+
+
+  /* -----------------------------
+     BOTTOM
+  ----------------------------- */
+
+  .project__bottom {
+    margin-top: 2rem;
+  }
+
+
+  .project__line {
+    width: 35px;
+  }
+
+
+  /* -----------------------------
+     GHOST NUMBER
+  ----------------------------- */
+
+  .project__ghost-number {
+    right: -1rem;
+
+    font-size:
+      clamp(8rem, 32vw, 12rem);
+  }
+
+
+  /* -----------------------------
+     MOBILE HOVER MOVEMENT
+  ----------------------------- */
+
+  .project:hover {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+
+  .project:hover .project__title {
+    transform:
+      translateX(4px);
+  }
+
+  .project:hover .project__description {
+    transform:
+      translateX(4px);
+  }
+
+  .project:hover .project__arrow {
+    transform:
+      translate(3px, -3px);
+  }
+
+  .project:hover .project__line {
+    width: 70px;
+  }
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 400px) {
+  .projects {
+    padding: 5rem 0;
+  }
+
+  .projects__title {
+    font-size: 3.3rem;
+  }
+
+  .projects__intro {
+    font-size: 13px;
   }
 
   .project {
-    padding: 1.5rem 0 2rem;
+    padding: 1.75rem 0;
   }
 
-  .project:hover {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+  .project__top {
+    grid-template-columns:
+      38px
+      1fr
+      auto;
+
+    gap: 0.7rem;
+  }
+
+  .project__category,
+  .project__status {
+    font-size: 7px;
   }
 
   .project__title {
-    font-size: clamp(2rem, 11vw, 3.5rem);
+    font-size: 2.25rem;
   }
 
   .project__description {
-    font-size: 0.9rem;
+    font-size: 12px;
+  }
+
+  .project__ghost-number {
+    font-size: 8rem;
+  }
+}
+
+
+/* ========================================
+   REDUCED MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .projects__eyebrow,
+  .projects__eyebrow-line,
+  .projects__heading > .projects__number,
+  .projects__title,
+  .projects__intro {
+    animation: none;
+  }
+
+  .projects__title span {
+    animation: none;
+  }
+
+  .project,
+  .project::before,
+  .project::after,
+  .project__ghost-number,
+  .project__number,
+  .project__category,
+  .project__status,
+  .project__title,
+  .project__description,
+  .project__year,
+  .project__arrow,
+  .project__line,
+  .project__explore {
+    transition: none;
   }
 }
