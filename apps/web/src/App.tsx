@@ -7,7 +7,7 @@ import Experience from "./components/experience/Experience";
 import Education from "./components/education/Education";
 import Contact from "./components/contact/Contact";
 import Footer from "./components/common/Footer";
-
+import Gallery from "./components/gallery/Gallery";
 import Reveal from "./animations/Reveal";
 
 function App() {
@@ -24,6 +24,10 @@ function App() {
           <Projects />
         </Reveal>
 
+
+        <Reveal>
+          <Gallery />
+        </Reveal>
         <Reveal>
           <About />
         </Reveal>

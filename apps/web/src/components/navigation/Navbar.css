@@ -498,3 +498,22 @@
     transform: none !important;
   }
 }
+
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .navbar__actions {
+    gap: 8px;
+  }
+
+  .sleep-trigger {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}

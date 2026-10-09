@@ -1,13 +1,16 @@
 import { Menu, X } from "lucide-react";
 import { useRef, useState } from "react";
 import "./Navbar.css";
+import ScreenSleep from "./ScreenSleep";
 
 const navLinks = [
   { label: "Work", href: "#work" },
+  { label: "Gallery", href: "#gallery" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];
+
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -111,23 +114,29 @@ function Navbar() {
           ))}
         </nav>
 
-        <button
-          type="button"
-          className="navbar__menu"
-          onClick={() => setIsOpen((open) => !open)}
-          aria-label={
-            isOpen
-              ? "Close navigation menu"
-              : "Open navigation menu"
-          }
-          aria-expanded={isOpen}
-        >
-          {isOpen ? (
-            <X size={22} strokeWidth={1.5} />
-          ) : (
-            <Menu size={22} strokeWidth={1.5} />
-          )}
-        </button>
+        
+        <div className="navbar__actions">
+          <ScreenSleep />
+
+          <button
+            type="button"
+            className="navbar__menu"
+            onClick={() => setIsOpen((open) => !open)}
+            aria-label={
+              isOpen
+                ? "Close navigation menu"
+                : "Open navigation menu"
+            }
+            aria-expanded={isOpen}
+          >
+            {isOpen ? (
+              <X size={22} strokeWidth={1.5} />
+            ) : (
+              <Menu size={22} strokeWidth={1.5} />
+            )}
+          </button>
+        </div>
+
       </div>
 
       <div

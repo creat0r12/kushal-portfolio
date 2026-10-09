@@ -1,0 +1,652 @@
+/* =========================================================
+   GALLERY — CINEMATIC LIQUID GLASS THEME
+========================================================= */
+
+.gallery-section {
+  position: relative;
+  width: min(100% - 2rem, 1200px);
+  margin: 0 auto;
+  padding: clamp(7rem, 12vw, 10rem) 0 clamp(3rem, 7vw, 6rem);
+  box-sizing: border-box;
+  color: #f5f5f5;
+}
+
+/* =========================================================
+   GALLERY HEADING
+========================================================= */
+
+.gallery-heading {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.gallery-heading h2 {
+  margin: 0.5rem 0;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.06em;
+}
+
+.gallery-heading h2 span {
+  color: #a7a7a7;
+}
+
+.gallery-heading p {
+  color: #a5a5a5;
+}
+
+.gallery-eyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   GLASS BUTTONS
+========================================================= */
+
+.gallery-owner-button,
+.gallery-owner-panel button,
+.gallery-lightbox-header button,
+.gallery-viewer-buttons button {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  padding: 0.8rem 1.1rem;
+
+  background: rgba(255, 255, 255, 0.045);
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.045);
+
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 180ms ease;
+}
+
+.gallery-owner-button:hover,
+.gallery-owner-panel button:hover,
+.gallery-lightbox-header button:hover,
+.gallery-viewer-buttons button:hover {
+  background: rgba(255, 255, 255, 0.105);
+  border-color: rgba(255, 255, 255, 0.3);
+
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.18),
+    0 0 18px rgba(255, 255, 255, 0.025),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.gallery-owner-button:active,
+.gallery-owner-panel button:active,
+.gallery-lightbox-header button:active,
+.gallery-viewer-buttons button:active {
+  transform: scale(0.98);
+}
+
+.gallery-owner-button:focus-visible,
+.gallery-owner-panel button:focus-visible,
+.gallery-image-trigger:focus-visible,
+.gallery-lightbox-header button:focus-visible,
+.gallery-viewer-buttons button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 4px;
+}
+
+.gallery-owner-panel button:disabled,
+.gallery-viewer-buttons button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* =========================================================
+   OWNER LOGIN AND UPLOAD — GLASS PANEL
+========================================================= */
+
+.gallery-owner-panel {
+  position: relative;
+  isolation: isolate;
+
+  width: min(100%, 480px);
+  margin: 2rem auto;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  box-sizing: border-box;
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 22px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(28, 28, 33, 0.58),
+    rgba(15, 15, 18, 0.42)
+  );
+
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.28),
+    0 0 25px rgba(255, 255, 255, 0.025),
+    inset 0 1px 0 rgba(255, 255, 255, 0.055);
+}
+
+.gallery-owner-panel h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.gallery-owner-panel label {
+  display: grid;
+  gap: 0.55rem;
+  margin: 1rem 0;
+  color: #c7c7c7;
+  font-size: 0.9rem;
+}
+
+.gallery-owner-panel form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.gallery-owner-panel input {
+  display: block;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.9rem 1rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 12px;
+
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font: inherit;
+  outline: none;
+
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background 220ms ease;
+}
+
+.gallery-owner-panel input:focus {
+  background: rgba(0, 0, 0, 0.38);
+  border-color: rgba(255, 255, 255, 0.4);
+
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.045),
+    0 0 18px rgba(255, 255, 255, 0.025);
+}
+
+.gallery-owner-panel input[type="file"] {
+  padding: 0.7rem;
+  font-size: 0.85rem;
+}
+
+.gallery-owner-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.gallery-owner-top h3 {
+  margin-bottom: 0.5rem;
+}
+
+/* =========================================================
+   STATUS MESSAGES
+========================================================= */
+
+.gallery-message {
+  margin: 1rem 0;
+  color: #c7c7c7;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.gallery-empty {
+  padding: 3rem 1rem;
+  color: #929292;
+  text-align: center;
+}
+
+/* =========================================================
+   PUBLIC IMAGE GRID
+========================================================= */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+/* =========================================================
+   GALLERY CARDS — GLASS SURFACE
+========================================================= */
+
+.gallery-card {
+  position: relative;
+  isolation: isolate;
+
+  min-width: 0;
+  overflow: hidden;
+  margin: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+
+  background: rgba(20, 20, 24, 0.48);
+
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.22),
+    0 0 25px rgba(255, 255, 255, 0.025),
+    inset 0 1px 0 rgba(255, 255, 255, 0.045);
+
+  transition:
+    border-color 250ms ease,
+    transform 250ms ease,
+    background 250ms ease,
+    box-shadow 250ms ease;
+}
+
+/* Local cursor light — follows pointer only if JS sets its variables */
+.gallery-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle 140px at var(--gallery-mouse-x, 50%)
+      var(--gallery-mouse-y, 0%),
+    rgba(255, 255, 255, 0.13) 0%,
+    rgba(255, 255, 255, 0.055) 30%,
+    rgba(255, 255, 255, 0.015) 55%,
+    transparent 75%
+  );
+
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+/* Soft ambient light beneath each card */
+.gallery-card::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -20px;
+  z-index: -1;
+
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.09);
+  filter: blur(26px);
+  opacity: 0;
+
+  pointer-events: none;
+  transition: opacity 250ms ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(255, 255, 255, 0.23);
+  background: rgba(28, 28, 33, 0.58);
+
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0.28),
+    0 0 25px rgba(255, 255, 255, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.075);
+}
+
+.gallery-card:hover::before,
+.gallery-card:hover::after {
+  opacity: 1;
+}
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.gallery-image-trigger {
+  display: block;
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.gallery-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+
+  transition:
+    transform 350ms ease,
+    filter 350ms ease;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.035);
+}
+
+.gallery-view-hint {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+
+  padding: 7px 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.19);
+  border-radius: 10px;
+
+  background: rgba(16, 16, 16, 0.8);
+  color: #fff;
+  font-size: 0.8rem;
+
+  opacity: 0;
+  transform: translateY(4px);
+
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.gallery-image-trigger:hover .gallery-view-hint,
+.gallery-image-trigger:focus-visible .gallery-view-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-card figcaption {
+  position: relative;
+  z-index: 1;
+  padding: 0.9rem 1rem;
+  color: #ddd;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   PENDING APPROVAL ROWS
+========================================================= */
+
+.gallery-pending-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.8rem 0;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gallery-pending-row span {
+  flex: 1;
+  min-width: 120px;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   FULLSCREEN IMAGE VIEWER — DARK GLASS
+========================================================= */
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  background: rgba(5, 5, 6, 0.94);
+  color: #fff;
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.gallery-lightbox-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 42px;
+}
+
+.gallery-lightbox-header span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gallery-lightbox-header button,
+.gallery-viewer-buttons button {
+  border-radius: 10px;
+  padding: 9px 12px;
+}
+
+/* =========================================================
+   IMAGE VIEWING AREA
+========================================================= */
+
+.gallery-lightbox-stage {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.25);
+
+  touch-action: none;
+}
+
+.gallery-lightbox-image {
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  transform-origin: center;
+  will-change: transform, filter;
+}
+
+/* =========================================================
+   VIEWER TOOLBAR
+========================================================= */
+
+.gallery-lightbox-controls {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  max-height: 32vh;
+  max-height: 32dvh;
+  overflow-y: auto;
+  padding: 8px;
+
+  scrollbar-width: thin;
+}
+
+.gallery-viewer-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.gallery-slider {
+  display: grid;
+  gap: 6px;
+  width: min(100%, 240px);
+  color: #ccc;
+  font-size: 0.8rem;
+}
+
+.gallery-slider input {
+  width: 100%;
+  margin: 0;
+  accent-color: #fff;
+  cursor: pointer;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+  .gallery-section {
+    padding-top: 7rem;
+  }
+
+  .gallery-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .gallery-heading h2 {
+    font-size: clamp(2.5rem, 11vw, 4rem);
+  }
+
+  .gallery-owner-button {
+    width: auto;
+  }
+
+  .gallery-lightbox {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .gallery-lightbox-controls {
+    max-height: 40dvh;
+    gap: 10px;
+  }
+
+  .gallery-viewer-buttons {
+    gap: 6px;
+  }
+
+  .gallery-viewer-buttons button {
+    padding: 8px 9px;
+    font-size: 0.75rem;
+  }
+
+  .gallery-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+  .gallery-section {
+    width: calc(100% - 1.25rem);
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .gallery-owner-button {
+    width: 100%;
+  }
+
+  .gallery-owner-panel {
+    padding: 1.1rem;
+  }
+
+  .gallery-lightbox-header span {
+    max-width: 75%;
+    font-size: 0.85rem;
+  }
+
+  .gallery-lightbox-controls {
+    max-height: 42dvh;
+  }
+
+  .gallery-slider {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-card,
+  .gallery-card::before,
+  .gallery-card::after,
+  .gallery-card img,
+  .gallery-view-hint,
+  .gallery-owner-button,
+  .gallery-owner-panel button,
+  .gallery-owner-panel input,
+  .gallery-lightbox-header button,
+  .gallery-viewer-buttons button {
+    transition: none !important;
+  }
+
+  .gallery-card:hover,
+  .gallery-card:hover img {
+    transform: none;
+  }
+}
