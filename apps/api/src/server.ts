@@ -9,13 +9,16 @@ import multer from "multer";
 import galleryRoutes from "./routes/galleryRoutes";
 import authRoutes from "./routes/authRoutes";
 import ownerRoutes from "./routes/ownerRoutes";
+import notepadRouter from "./temporary-notepad/notepad.routes";
 
 const app = express();
 const PORT = Number(process.env.PORT) || 5001;
+
 const FRONTEND_URL =
   process.env.FRONTEND_URL || "http://localhost:5173";
 
 app.disable("x-powered-by");
+
 app.use(helmet());
 
 app.use(
@@ -25,13 +28,22 @@ app.use(
   }),
 );
 
+// Parse request bodies BEFORE mounting API routes.
 app.use(express.json({ limit: "1mb" }));
 app.use(cookieParser());
 
+// Health check
 app.get("/api/health", (_req, res) => {
-  res.json({ status: "ok", service: "portfolio-api" });
+  res.json({
+    status: "ok",
+    service: "portfolio-api",
+  });
 });
 
+// Notepad API
+app.use("/api/notepad", notepadRouter);
+
+// Existing routes — preserved
 app.use("/api/auth", authRoutes);
 app.use("/api/gallery", galleryRoutes);
 app.use("/api/owner/gallery", ownerRoutes);
@@ -50,13 +62,21 @@ app.use((
     return;
   }
 
-  if (error instanceof Error && error.message.startsWith("Only JPEG")) {
-    res.status(400).json({ message: error.message });
+  if (
+    error instanceof Error &&
+    error.message.startsWith("Only JPEG")
+  ) {
+    res.status(400).json({
+      message: error.message,
+    });
     return;
   }
 
-  console.error("API request failed.");
-  res.status(500).json({ message: "Unexpected server error." });
+  console.error("API request failed:", error);
+
+  res.status(500).json({
+    message: "Unexpected server error.",
+  });
 });
 
 app.listen(PORT, () => {

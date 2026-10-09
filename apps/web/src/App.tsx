@@ -1,3 +1,4 @@
+
 import Navbar from "./components/navigation/Navbar";
 import Hero from "./components/hero/Hero";
 import Projects from "./components/projects/Projects";
@@ -9,6 +10,7 @@ import Contact from "./components/contact/Contact";
 import Footer from "./components/common/Footer";
 import Gallery from "./components/gallery/Gallery";
 import Reveal from "./animations/Reveal";
+import Notepad from "./components/temporary-notepad/Notepad";
 
 function App() {
   return (
@@ -24,10 +26,10 @@ function App() {
           <Projects />
         </Reveal>
 
-
         <Reveal>
           <Gallery />
         </Reveal>
+
         <Reveal>
           <About />
         </Reveal>
@@ -50,6 +52,8 @@ function App() {
       </main>
 
       <Footer />
+
+      <Notepad />
     </div>
   );
 }

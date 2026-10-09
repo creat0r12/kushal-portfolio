@@ -1,0 +1,885 @@
+
+/* =========================================
+   TEMPORARY NOTEPAD — PURE BLACK & WHITE
+   ========================================= */
+
+.temporary-notepad {
+  --tn-bg: #000000;
+  --tn-panel: #080808;
+  --tn-border: rgba(255, 255, 255, 0.14);
+  --tn-text: #ffffff;
+  --tn-muted: #a0a0a0;
+  --tn-accent: #ffffff;
+
+  position: relative;
+  z-index: 1000;
+  color: var(--tn-text);
+  font-family: inherit;
+}
+
+/* =========================================
+   FLOATING LAUNCHER
+   ========================================= */
+
+.tn-launcher {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 13px 19px;
+
+  color: #ffffff;
+  background: rgba(8, 8, 8, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow: 0 8px 35px #000000;
+
+  font: inherit;
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.tn-launcher:hover {
+  transform: translateY(-3px);
+  background: #171717;
+  border-color: #ffffff;
+}
+
+.tn-launcher span:first-child {
+  color: #ffffff;
+  font-size: 21px;
+}
+
+/* =========================================
+   MAIN NOTEPAD PANEL
+   ========================================= */
+
+.tn-panel {
+  position: fixed;
+  right: 24px;
+  bottom: 84px;
+
+  display: flex;
+  flex-direction: column;
+
+  width: min(1050px, calc(100vw - 32px));
+  height: min(700px, calc(100dvh - 120px));
+  min-height: 300px;
+
+  overflow: hidden;
+
+  color: #ffffff;
+  background: rgba(5, 5, 5, 0.98);
+
+  border: 1px solid #292929;
+  border-radius: 24px;
+
+  box-shadow:
+    0 25px 90px #000000,
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.tn-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 23px 26px 20px;
+
+  border-bottom: 1px solid #292929;
+}
+
+.tn-header h2 {
+  margin: 5px 0 7px;
+
+  color: #ffffff;
+
+  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: -0.7px;
+}
+
+.tn-eyebrow {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2.2px;
+}
+
+.tn-status {
+  margin: 0;
+
+  color: #a0a0a0;
+
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* Close button */
+
+.tn-icon-button {
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  width: 40px;
+  height: 40px;
+
+  color: #ffffff;
+  background: transparent;
+
+  border: 1px solid #333333;
+  border-radius: 50%;
+
+  font-size: 25px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.tn-icon-button:hover {
+  background: #202020;
+  border-color: #ffffff;
+  transform: rotate(90deg);
+}
+
+/* =========================================
+   SEARCH & TOOLBAR
+   ========================================= */
+
+.tn-toolbar {
+  display: flex;
+  gap: 12px;
+
+  padding: 15px 20px;
+
+  border-bottom: 1px solid #292929;
+}
+
+.tn-search {
+  flex: 1;
+  min-width: 0;
+
+  padding: 12px 15px;
+
+  color: #ffffff;
+  background: #111111;
+
+  border: 1px solid #303030;
+  border-radius: 12px;
+  outline: none;
+
+  font: inherit;
+  font-size: 12px;
+
+  transition:
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.tn-search:focus {
+  background: #151515;
+  border-color: #ffffff;
+}
+
+.tn-search::placeholder {
+  color: #777777;
+}
+
+/* New note button */
+
+.tn-new-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  flex-shrink: 0;
+
+  padding: 11px 17px;
+
+  color: #000000;
+  background: #ffffff;
+
+  border: 1px solid #ffffff;
+  border-radius: 12px;
+
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.tn-new-button:hover {
+  color: #ffffff;
+  background: #181818;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   TWO-COLUMN LAYOUT
+   ========================================= */
+
+.tn-layout {
+  display: grid;
+  grid-template-columns: minmax(190px, 270px) minmax(0, 1fr);
+
+  flex: 1;
+  min-height: 0;
+}
+
+/* =========================================
+   NOTES SIDEBAR
+   ========================================= */
+
+.tn-list {
+  min-width: 0;
+  overflow-y: auto;
+
+  background: #070707;
+
+  border-right: 1px solid #292929;
+
+  scrollbar-width: thin;
+  scrollbar-color: #454545 transparent;
+}
+
+.tn-note-row {
+  display: flex;
+  align-items: stretch;
+
+  border-bottom: 1px solid #1d1d1d;
+
+  transition: background 180ms ease;
+}
+
+.tn-note-row:hover {
+  background: #111111;
+}
+
+.tn-note-row.is-selected {
+  background: #1a1a1a;
+  box-shadow: inset 2px 0 #ffffff;
+}
+
+.tn-note-select {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 7px;
+
+  min-width: 0;
+
+  padding: 16px 8px 16px 17px;
+
+  color: #ffffff;
+  background: transparent;
+
+  border: 0;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.tn-note-select strong {
+  overflow: hidden;
+  max-width: 100%;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tn-note-select span {
+  overflow: hidden;
+  max-width: 100%;
+
+  color: #a0a0a0;
+
+  font-size: 10px;
+  line-height: 1.5;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tn-note-select time {
+  color: #777777;
+  font-size: 10px;
+}
+
+/* Delete note */
+
+.tn-delete {
+  align-self: center;
+  flex-shrink: 0;
+
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+
+  color: #888888;
+  background: transparent;
+
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  font-size: 21px;
+
+  cursor: pointer;
+
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.tn-delete:hover {
+  color: #ffffff;
+  background: #292929;
+  border-color: #414141;
+}
+
+.tn-empty {
+  margin: 0;
+  padding: 18px 17px;
+
+  color: #a0a0a0;
+
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   NOTE EDITOR
+   ========================================= */
+
+.tn-editor {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+  min-height: 0;
+
+  padding: 24px;
+  background: #080808;
+}
+
+.tn-title-input {
+  box-sizing: border-box;
+  width: 100%;
+
+  padding: 8px 0 17px;
+
+  color: #ffffff;
+  background: transparent;
+
+  border: 0;
+  border-bottom: 1px solid #292929;
+  border-radius: 0;
+  outline: none;
+
+  font: inherit;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+
+  transition: border-color 180ms ease;
+}
+
+.tn-title-input:focus {
+  border-bottom-color: #ffffff;
+}
+
+.tn-title-input::placeholder {
+  color: #666666;
+}
+
+.tn-content-input {
+  flex: 1;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 80px;
+
+  padding: 20px 0;
+
+  color: #eeeeee;
+  background: transparent;
+
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  resize: none;
+
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.9;
+
+  scrollbar-width: thin;
+  scrollbar-color: #454545 transparent;
+}
+
+.tn-content-input:focus {
+  outline: none;
+}
+
+.tn-content-input::placeholder {
+  color: #777777;
+}
+
+/* Editor footer */
+
+.tn-editor-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  padding-top: 13px;
+
+  color: #a0a0a0;
+
+  border-top: 1px solid #292929;
+
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   EMPTY EDITOR STATE
+   ========================================= */
+
+.tn-welcome {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  text-align: center;
+}
+
+.tn-welcome > span {
+  display: grid;
+  place-items: center;
+
+  width: 58px;
+  height: 58px;
+  margin-bottom: 12px;
+
+  color: #ffffff;
+  background: #111111;
+
+  border: 1px solid #303030;
+  border-radius: 18px;
+
+  font-size: 29px;
+}
+
+.tn-welcome h3 {
+  margin: 8px 0 5px;
+
+  color: #ffffff;
+
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+
+.tn-welcome p {
+  max-width: 290px;
+  margin: 7px 0 20px;
+
+  color: #a0a0a0;
+
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* =========================================
+   BOTTOM INFORMATION BAR
+   ========================================= */
+
+.tn-privacy-note {
+  margin: 0;
+  padding: 12px 16px;
+
+  color: #929292;
+  background: #060606;
+
+  border-top: 1px solid #292929;
+
+  font-size: 10px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* =========================================
+   SCROLLBARS
+   ========================================= */
+
+.tn-list::-webkit-scrollbar,
+.tn-content-input::-webkit-scrollbar {
+  width: 5px;
+}
+
+.tn-list::-webkit-scrollbar-track,
+.tn-content-input::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tn-list::-webkit-scrollbar-thumb,
+.tn-content-input::-webkit-scrollbar-thumb {
+  background: #404040;
+  border-radius: 20px;
+}
+
+.tn-list::-webkit-scrollbar-thumb:hover,
+.tn-content-input::-webkit-scrollbar-thumb:hover {
+  background: #777777;
+}
+
+/* =========================================
+   ACCESSIBILITY
+   ========================================= */
+
+.tn-launcher:focus-visible,
+.tn-new-button:focus-visible,
+.tn-icon-button:focus-visible,
+.tn-note-select:focus-visible,
+.tn-delete:focus-visible,
+.tn-search:focus-visible {
+  outline: 1px solid #ffffff;
+  outline-offset: 3px;
+}
+
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+   ========================================= */
+
+@media (max-width: 600px) {
+  .tn-launcher {
+    right: 14px;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    padding: 12px 16px;
+    min-height: 44px;
+    font-size: 12px;
+  }
+
+  .tn-panel {
+    position: fixed;
+    top: max(8px, env(safe-area-inset-top));
+    right: 8px;
+    bottom: max(70px, calc(env(safe-area-inset-bottom) + 64px));
+    left: 8px;
+
+    width: auto;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+
+    border-radius: 18px;
+  }
+
+  .tn-header {
+    flex-shrink: 0;
+    padding: 14px 15px;
+    gap: 10px;
+  }
+
+  .tn-header h2 {
+    margin: 4px 0 5px;
+    font-size: 19px;
+    letter-spacing: -0.4px;
+  }
+
+  .tn-eyebrow {
+    font-size: 8px;
+    letter-spacing: 1.8px;
+  }
+
+  .tn-status {
+    font-size: 10px;
+    overflow-wrap: anywhere;
+  }
+
+  .tn-icon-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .tn-toolbar {
+    flex-shrink: 0;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .tn-search {
+    width: 0;
+    min-width: 0;
+    padding: 11px 10px;
+    font-size: 12px;
+  }
+
+  .tn-new-button {
+    min-height: 42px;
+    padding: 10px 12px;
+    white-space: nowrap;
+  }
+
+  /* Keep the note list and editor usable on narrow screens. */
+  .tn-layout {
+    display: grid;
+    grid-template-columns: minmax(95px, 32%) minmax(0, 1fr);
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .tn-list {
+    min-width: 0;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tn-note-row {
+    min-width: 0;
+  }
+
+  .tn-note-select {
+    min-width: 0;
+    padding: 12px 5px 12px 9px;
+    gap: 5px;
+  }
+
+  .tn-note-select strong {
+    font-size: 11px;
+  }
+
+  .tn-note-select span {
+    font-size: 10px;
+  }
+
+  .tn-note-select time {
+    font-size: 9px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .tn-delete {
+    align-self: flex-start;
+    width: 28px;
+    height: 34px;
+    margin: 4px 2px 0 0;
+    font-size: 19px;
+  }
+
+  .tn-empty {
+    padding: 10px;
+    font-size: 10px;
+    overflow-wrap: anywhere;
+  }
+
+  .tn-editor {
+    min-width: 0;
+    min-height: 0;
+    padding: 13px;
+    overflow: hidden;
+  }
+
+  .tn-title-input {
+    flex-shrink: 0;
+    min-width: 0;
+    padding: 7px 0 12px;
+    font-size: 18px;
+    overflow-wrap: anywhere;
+  }
+
+  .tn-content-input {
+    flex: 1;
+    min-width: 0;
+    min-height: 60px;
+    padding: 13px 0;
+    font-size: 14px;
+    line-height: 1.8;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tn-editor-footer {
+    flex-shrink: 0;
+    gap: 6px;
+    padding-top: 10px;
+    font-size: 10px;
+    overflow-wrap: anywhere;
+  }
+
+  .tn-welcome {
+    padding: 10px 4px;
+    overflow-y: auto;
+  }
+
+  .tn-welcome > span {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    font-size: 24px;
+  }
+
+  .tn-welcome h3 {
+    font-size: 16px;
+  }
+
+  .tn-welcome p {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  .tn-privacy-note {
+    flex-shrink: 0;
+    padding: 8px 10px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    font-size: 9px;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Extra-small phones */
+@media (max-width: 380px) {
+  .tn-panel {
+    right: 5px;
+    left: 5px;
+    border-radius: 15px;
+  }
+
+  .tn-header {
+    padding: 11px 12px;
+  }
+
+  .tn-header h2 {
+    font-size: 17px;
+  }
+
+  .tn-toolbar {
+    padding: 8px;
+  }
+
+  .tn-layout {
+    grid-template-columns: 88px minmax(0, 1fr);
+  }
+
+  .tn-note-select {
+    padding-left: 7px;
+  }
+
+  .tn-note-select strong {
+    font-size: 10px;
+  }
+
+  .tn-note-select span,
+  .tn-note-select time {
+    font-size: 9px;
+  }
+
+  .tn-delete {
+    width: 24px;
+    margin-right: 1px;
+  }
+
+  .tn-editor {
+    padding: 10px;
+  }
+
+  .tn-title-input {
+    font-size: 16px;
+  }
+
+  .tn-content-input {
+    font-size: 13px;
+  }
+
+  .tn-editor-footer {
+    font-size: 9px;
+  }
+}
+
+/* Landscape phones and short screens */
+@media (max-width: 800px) and (max-height: 500px) {
+  .tn-panel {
+    top: 6px;
+    bottom: 58px;
+    height: auto;
+    min-height: 0;
+  }
+
+  .tn-header {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .tn-toolbar {
+    padding: 7px 10px;
+  }
+
+  .tn-privacy-note {
+    padding: 5px 8px;
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .tn-launcher,
+  .tn-icon-button,
+  .tn-new-button,
+  .tn-note-row,
+  .tn-delete {
+    transition: none;
+  }
+}
