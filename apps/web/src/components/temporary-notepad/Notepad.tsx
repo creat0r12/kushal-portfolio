@@ -1,5 +1,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { apiUrl } from "../../lib/api";
 import "./Notepad.css";
 
 type Note = {
@@ -8,10 +9,6 @@ type Note = {
   content: string;
   updatedAt: string;
 };
-
-const API_URL = `${
-  (import.meta.env.VITE_API_URL || "http://localhost:5001").replace(/\/$/, "")
-}/api/notepad`;
 
 export default function Notepad() {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -40,7 +37,7 @@ export default function Notepad() {
 
   const fetchNotes = useCallback(async () => {
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(apiUrl("/api/notepad"), {
         cache: "no-store",
       });
 
@@ -89,11 +86,11 @@ export default function Notepad() {
   useEffect(() => {
     void fetchNotes();
 
-    const interval = setInterval(() => {
+    const interval = window.setInterval(() => {
       void fetchNotes();
     }, 5000);
 
-    return () => clearInterval(interval);
+    return () => window.clearInterval(interval);
   }, [fetchNotes]);
 
   const saveNote = useCallback(
@@ -112,7 +109,7 @@ export default function Notepad() {
 
       try {
         const response = await fetch(
-          `${API_URL}/${encodeURIComponent(id)}`,
+          apiUrl(`/api/notepad/${encodeURIComponent(id)}`),
           {
             method: "PUT",
             headers: {
@@ -191,7 +188,7 @@ export default function Notepad() {
     const draft = { title, content };
     const version = ++saveVersionRef.current;
 
-    saveTimerRef.current = setTimeout(() => {
+    saveTimerRef.current = window.setTimeout(() => {
       saveTimerRef.current = null;
       void saveNote(id, draft, version);
     }, 700);
@@ -205,12 +202,9 @@ export default function Notepad() {
   }, [selectedId, title, content, saveNote]);
 
   async function selectNote(note: Note) {
-    // Don't switch away if the current draft fails to save.
     const saved = await flushPendingSave();
 
-    if (!saved) {
-      return;
-    }
+    if (!saved) return;
 
     dirtyRef.current = false;
     selectedIdRef.current = note.id;
@@ -230,14 +224,12 @@ export default function Notepad() {
   async function createNote() {
     const saved = await flushPendingSave();
 
-    if (!saved) {
-      return;
-    }
+    if (!saved) return;
 
     try {
       setStatus("Creating…");
 
-      const response = await fetch(API_URL, {
+      const response = await fetch(apiUrl("/api/notepad"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -279,26 +271,19 @@ export default function Notepad() {
   }
 
   async function deleteNote(note: Note) {
-    if (
-      !window.confirm(
-        `Delete "${note.title}" for everyone?`,
-      )
-    ) {
+    if (!window.confirm(`Delete "${note.title}" for everyone?`)) {
       return;
     }
 
-    // Save pending edits before deleting the selected note.
     if (selectedIdRef.current === note.id) {
       const saved = await flushPendingSave();
 
-      if (!saved) {
-        return;
-      }
+      if (!saved) return;
     }
 
     try {
       const response = await fetch(
-        `${API_URL}/${encodeURIComponent(note.id)}`,
+        apiUrl(`/api/notepad/${encodeURIComponent(note.id)}`),
         {
           method: "DELETE",
         },
@@ -374,30 +359,27 @@ export default function Notepad() {
   return (
     <div className="temporary-notepad">
       <button
+        type="button"
         className="tn-launcher"
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
-        aria-label={
-          open ? "Close shared notepad" : "Open shared notepad"
-        }
+        aria-label={open ? "Close shared notepad" : "Open shared notepad"}
       >
         <span aria-hidden="true">✎</span>
         <span>Shared Notes</span>
       </button>
 
       {open && (
-        <section
-          className="tn-panel"
-          aria-label="Shared notepad"
-        >
+        <section className="tn-panel" aria-label="Shared notepad">
           <header className="tn-header">
             <div>
               <p className="tn-eyebrow">PORTFOLIO TOOL</p>
               <h2>Shared Notepad</h2>
-              <p className="tn-status">{status}</p>
+              <p className="tn-status" role="status">{status}</p>
             </div>
 
             <button
+              type="button"
               className="tn-icon-button"
               onClick={() => setOpen(false)}
               aria-label="Close"
@@ -416,6 +398,7 @@ export default function Notepad() {
             />
 
             <button
+              type="button"
               className="tn-new-button"
               onClick={() => void createNote()}
             >
@@ -424,18 +407,11 @@ export default function Notepad() {
           </div>
 
           <div className="tn-layout">
-            <aside
-              className="tn-list"
-              aria-label="Notes list"
-            >
-              {loading && (
-                <p className="tn-empty">Loading…</p>
-              )}
+            <aside className="tn-list" aria-label="Notes list">
+              {loading && <p className="tn-empty">Loading…</p>}
 
               {!loading && filteredNotes.length === 0 && (
-                <p className="tn-empty">
-                  No notes yet. Create one.
-                </p>
+                <p className="tn-empty">No notes yet. Create one.</p>
               )}
 
               {filteredNotes.map((note) => (
@@ -446,23 +422,19 @@ export default function Notepad() {
                   key={note.id}
                 >
                   <button
+                    type="button"
                     className="tn-note-select"
                     onClick={() => void selectNote(note)}
                   >
-                    <strong>
-                      {note.title || "Untitled note"}
-                    </strong>
-
-                    <span>
-                      {note.content.slice(0, 65) || "Empty note"}
-                    </span>
-
+                    <strong>{note.title || "Untitled note"}</strong>
+                    <span>{note.content.slice(0, 65) || "Empty note"}</span>
                     <time>
                       {new Date(note.updatedAt).toLocaleString()}
                     </time>
                   </button>
 
                   <button
+                    type="button"
                     className="tn-delete"
                     onClick={() => void deleteNote(note)}
                     aria-label={`Delete ${note.title}`}
@@ -481,9 +453,7 @@ export default function Notepad() {
                     className="tn-title-input"
                     value={title}
                     maxLength={120}
-                    onChange={(event) =>
-                      updateTitle(event.target.value)
-                    }
+                    onChange={(event) => updateTitle(event.target.value)}
                     placeholder="Note title"
                     aria-label="Note title"
                   />
@@ -492,9 +462,7 @@ export default function Notepad() {
                     className="tn-content-input"
                     value={content}
                     maxLength={100000}
-                    onChange={(event) =>
-                      updateContent(event.target.value)
-                    }
+                    onChange={(event) => updateContent(event.target.value)}
                     placeholder="Write something… changes save automatically."
                     aria-label="Note content"
                   />
@@ -511,11 +479,12 @@ export default function Notepad() {
                   <span>✎</span>
                   <h3>Your shared space</h3>
                   <p>
-                    Select a note or create one. Notes are visible
-                    to anyone who can access this page.
+                    Select a note or create one. Notes are visible to anyone
+                    who can access this page.
                   </p>
 
                   <button
+                    type="button"
                     className="tn-new-button"
                     onClick={() => void createNote()}
                   >

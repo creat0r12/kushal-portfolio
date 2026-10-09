@@ -1,4 +1,4 @@
-
+import { apiUrl } from "../../lib/api";
 import {
   useEffect,
   useState,
@@ -8,7 +8,7 @@ import {
 } from "react";
 import "./Gallery.css";
 
-const API = "http://localhost:5001";
+
 
 type GalleryImage = {
   id: string;
@@ -43,7 +43,7 @@ export default function Gallery() {
 
   async function loadImages() {
     try {
-      const response = await fetch(`${API}/api/gallery/approved`);
+      const response = await fetch(apiUrl("/api/gallery/approved"));
 
       if (!response.ok) {
         throw new Error("Unable to load Gallery.");
@@ -57,9 +57,9 @@ export default function Gallery() {
   }
 
   async function loadPending() {
-    const response = await fetch(`${API}/api/owner/gallery/pending`, {
-      credentials: "include",
-    });
+    const response = await fetch(apiUrl("/api/owner/gallery/pending"), {
+  credentials: "include",
+})
 
     if (response.status === 401) {
       setAuthenticated(false);
@@ -77,9 +77,9 @@ export default function Gallery() {
 
   async function loadOwner() {
     try {
-      const response = await fetch(`${API}/api/owner/gallery/me`, {
-        credentials: "include",
-      });
+      const response = await fetch(apiUrl("/api/owner/gallery/me"), {
+  credentials: "include",
+})
 
       if (response.ok) {
         setAuthenticated(true);
@@ -103,7 +103,7 @@ export default function Gallery() {
     setMessage("");
 
     try {
-      const response = await fetch(`${API}/api/auth/login`, {
+      const response = await fetch(apiUrl("/api/auth/login"), {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -145,7 +145,7 @@ export default function Gallery() {
       formData.append("image", file);
       formData.append("title", title.trim());
 
-      const response = await fetch(`${API}/api/owner/gallery/upload`, {
+      const response = await fetch(apiUrl("/api/owner/gallery/upload"), {
         method: "POST",
         credentials: "include",
         body: formData,
@@ -183,12 +183,12 @@ export default function Gallery() {
 
     try {
       const response = await fetch(
-        `${API}/api/owner/gallery/${encodeURIComponent(id)}/${action}`,
-        {
-          method: "POST",
-          credentials: "include",
-        },
-      );
+  apiUrl(`/api/owner/gallery/${encodeURIComponent(id)}/${action}`),
+  {
+    method: "POST",
+    credentials: "include",
+  },
+);
 
       const data = await response.json();
 
@@ -211,7 +211,7 @@ export default function Gallery() {
 
   async function logout() {
     try {
-      await fetch(`${API}/api/auth/logout`, {
+      await fetch(apiUrl("/api/auth/logout"), {
         method: "POST",
         credentials: "include",
       });
