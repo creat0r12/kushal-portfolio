@@ -97,10 +97,15 @@ router.post("/upload", upload.single("image"), async (req, res) => {
       message: "Image uploaded and awaiting approval.",
       image: { id, title, status: "PENDING" },
     });
-  } catch {
-    console.error("Gallery upload failed.");
-    res.status(500).json({ message: "Upload failed. Please try again." });
-  }
+  
+} catch (error) {
+  console.error("Gallery upload failed:", error);
+
+  res.status(500).json({
+    message: "Upload failed. Please try again.",
+  });
+}
+
 });
 
 router.post("/:id/approve", (req, res) => {
