@@ -55,3 +55,18 @@
     font-size: 0.95rem;
   }
 }
+
+
+.about__blog-link {
+  display: inline-block;
+  margin-top: 18px;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 4px;
+  transition: opacity 0.3s ease;
+}
+
+.about__blog-link:hover {
+  opacity: 0.65;
+}

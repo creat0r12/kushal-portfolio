@@ -1,3 +1,4 @@
+
 import Reveal from "../../animations/Reveal";
 import "./About.css";
 
@@ -29,6 +30,15 @@ function About() {
                 product ideas. I'm always learning, building, and looking for
                 better ways to turn an idea into something people can use.
               </p>
+
+              <a
+                href="https://rjcreat0r.blogspot.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="about__blog-link"
+              >
+                Read my blog ↗
+              </a>
             </div>
           </div>
         </div>
